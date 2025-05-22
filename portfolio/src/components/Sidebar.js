@@ -37,12 +37,24 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
         <p className="text-gray-400">Software Engineer</p>
         
         <div className="flex justify-center space-x-4 mt-4">
-          <div className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1">
+          <a
+            href="https://github.com/your-profile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
+            aria-label="GitHub"
+          >
             <Github size={20} />
-          </div>
-          <div className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1">
+          </a>
+          <a
+            href="https://linkedin.com/in/your-profile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
+            aria-label="LinkedIn"
+          >
             <Linkedin size={20} />
-          </div>
+          </a>
         </div>
 
         {/* Download CV Button in Topbar */}
