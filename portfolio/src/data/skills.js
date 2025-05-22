@@ -1,27 +1,27 @@
 const skills = {
   programmingLanguages: [
-    { name: "JavaScript", level: 95 },
-    { name: "TypeScript", level: 90 },
-    { name: "Python", level: 85 },
-    { name: "PHP", level: 75 },
-    { name: "Java", level: 70 },
-    { name: "C#", level: 65 }
+    { name: "JavaScript"},
+    { name: "TypeScript" },
+    { name: "Python" },
+    { name: "PHP" },
+    { name: "Java" },
+    { name: "C#" }
   ],
   frontendTechnologies: [
-    { name: "React", level: 95 },
-    { name: "HTML/CSS", level: 90 },
-    { name: "Tailwind CSS", level: 85 },
-    { name: "Next.js", level: 80 },
-    { name: "Vue.js", level: 75 },
-    { name: "Angular", level: 65 }
+    { name: "React"},
+    { name: "HTML/CSS" },
+    { name: "Tailwind CSS" },
+    { name: "Next.js" },
+    { name: "Vue.js" },
+    { name: "Angular" }
   ],
   backendTechnologies: [
-    { name: "Node.js", level: 90 },
-    { name: "MongoDB", level: 85 },
-    { name: "PostgreSQL", level: 80 },
-    { name: "GraphQL", level: 75 },
-    { name: "Docker", level: 70 },
-    { name: "AWS", level: 65 }
+    { name: "Node.js" },
+    { name: "MongoDB" },
+    { name: "PostgreSQL" },
+    { name: "GraphQL" },
+    { name: "Docker" },
+    { name: "AWS" }
   ]
 };
 
