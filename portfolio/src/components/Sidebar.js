@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Mail, Linkedin, Code, FileText, Briefcase, User, Scroll } from 'lucide-react';
+import { Github, Mail, Linkedin, Code, FileText, Briefcase, User, Scroll, Download } from 'lucide-react';
 
 const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection }) => {
   // Icon mapping for navigation items
@@ -33,21 +33,32 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
             className="w-full h-full object-cover"
           />
         </div>
-        <h1 className="text-xl font-bold mt-2">Jane Doe</h1>
-        <p className="text-gray-400">Full Stack Developer</p>
+        <h1 className="text-xl text-gray-200 font-bold mt-2">William Stapleton</h1>
+        <p className="text-gray-400">Software Engineer</p>
         
         <div className="flex justify-center space-x-4 mt-4">
-          <div className="text-gray-400 hover:text-orange-500 cursor-pointer transition-colors duration-200">
+          <div className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1">
             <Github size={20} />
           </div>
-          <div className="text-gray-400 hover:text-orange-500 cursor-pointer transition-colors duration-200">
+          <div className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1">
             <Linkedin size={20} />
           </div>
-          <div className="text-gray-400 hover:text-orange-500 cursor-pointer transition-colors duration-200">
-            <Mail size={20} />
-          </div>
+        </div>
+
+        {/* Download CV Button in Topbar */}
+        <div className="mt-4">
+          <a
+            href="/Your_CV.pdf"  // replace with your actual CV link
+            download
+            className="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 hover:bg-gray-300 rounded-lg px-3 py-2"
+          >
+            <Download size={20} />
+            <span className="text-sm">Download CV</span>
+          </a>
         </div>
       </div>
+
+      
       
       {/* Navigation */}
       <nav className="p-4">
@@ -69,10 +80,10 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
       </nav>
       
       {/* Contact Info */}
-      <div className="absolute bottom-0 left-0 w-full p-4 border-t border-gray-700 text-sm">
+      {/* <div className="absolute bottom-0 left-0 w-full p-4 border-t border-gray-700 text-sm">
         <p className="text-gray-400 mb-1">hello@example.com</p>
         <p className="text-gray-400">+1 (555) 123-4567</p>
-      </div>
+      </div> */}
     </aside>
   );
 };
