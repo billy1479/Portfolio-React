@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Mail, Linkedin, Code, FileText, Briefcase, User } from 'lucide-react';
+import { Github, Mail, Linkedin, Code, FileText, Briefcase, User, Scroll } from 'lucide-react';
 
 const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection }) => {
   // Icon mapping for navigation items
@@ -7,8 +7,10 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
     switch (id) {
       case 'about':
         return <User size={20} />;
-      case 'qualifications':
+      case 'experience':
         return <Briefcase size={20} />;
+       case 'qualifications':
+        return <Scroll size={20} />;
       case 'languages':
         return <Code size={20} />;
       case 'projects':

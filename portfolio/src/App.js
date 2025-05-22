@@ -4,6 +4,7 @@ import AboutSection from './components/AboutSection';
 import QualificationsSection from './components/QualificationSection';
 import LanguagesSection from './components/LanguagesSection';
 import ProjectsSection from './components/ProjectsSection';
+import WorkExperienceSection from './components/WorkExperienceSection';
 import Footer from './components/Footer';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
   const navSections = [
     { id: 'about', label: 'About Me' },
     { id: 'qualifications', label: 'Qualifications' },
+    { id: 'experience', label: 'Experience' },
     { id: 'languages', label: 'Languages' },
     { id: 'projects', label: 'Projects' }
   ];
@@ -81,6 +83,7 @@ const App = () => {
       <main className="flex-1 md:ml-0 p-4 pt-16 md:pt-4">
         <AboutSection />
         <QualificationsSection />
+        <WorkExperienceSection />
         <LanguagesSection />
         <ProjectsSection />
         <Footer />
