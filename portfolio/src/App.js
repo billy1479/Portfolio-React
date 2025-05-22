@@ -80,13 +80,15 @@ const App = () => {
       />
       
       {/* Main Content */}
-      <main className="flex-1 md:ml-0 p-4 pt-16 md:pt-4">
-        <AboutSection />
-        <QualificationsSection />
-        <WorkExperienceSection />
-        <LanguagesSection />
-        <ProjectsSection />
-        <Footer />
+      <main className="flex-1 md:ml-0 p-4 pt-16 md:pt-4 flex">
+        <div className="max-w-6xl w-full min-w-0 mx-auto flex flex-col gap-8">
+            <AboutSection />
+            <QualificationsSection />
+            <WorkExperienceSection />
+            <LanguagesSection />
+            <ProjectsSection />
+            <Footer />
+        </div>
       </main>
     </div>
   );

@@ -5,7 +5,7 @@ const QualificationsSection = () => {
   const { education, experience } = qualificationsData;
 
   return (
-    <section id="qualifications" className="max-w-4xl mx-auto mb-16 bg-gray-800 rounded-xl shadow-md overflow-hidden">
+    <section id="qualifications" className="max-w-6xl w-full min-w-0 mb-16 bg-gray-800 rounded-xl shadow-md overflow-hidden">
       <div className="p-8">
         <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-700 pb-2">Qualifications</h2>
         

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Mail, Linkedin, Code, FileText, Briefcase, User, Scroll, Download } from 'lucide-react';
+import { Github, Linkedin, Code, FileText, Briefcase, User, Scroll, Download } from 'lucide-react';
 
 const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection }) => {
   // Icon mapping for navigation items
