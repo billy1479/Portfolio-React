@@ -28,7 +28,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
       <div className="p-6 text-center border-b border-gray-700">
         <div className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-500 to-amber-600 rounded-full overflow-hidden border-4 border-gray-700 shadow-md mb-4">
           <img 
-            src="/api/placeholder/200/200" 
+            src={require(`../assets/profilepicture.jpeg`)}
             alt="Developer portrait" 
             className="w-full h-full object-cover"
           />
@@ -60,7 +60,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
         {/* Download CV Button in Topbar */}
         <div className="mt-4">
           <a
-            href="/Your_CV.pdf"  // replace with your actual CV link
+            href="https://1drv.ms/b/c/1ca77314ea9d2133/ETMhneoUc6cggBwjnwMAAAABCRtY8rnnlDNmnJ2BmP0zVg?e=F523Pb"  // replace with your actual CV link
             download
             className="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 hover:bg-gray-300 rounded-lg px-3 py-2"
           >
