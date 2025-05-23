@@ -984,3 +984,19 @@ section {
     }
   }
 }
+.work-exp-img {
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  max-width: 60%;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .work-exp-img {
+    width: 15vw;
+    height: 5vw;
+    min-width: 10vw;
+    max-width: 15vw;
+  }
+}

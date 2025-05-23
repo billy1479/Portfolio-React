@@ -8,12 +8,14 @@ const WorkExperienceSection = () => (
       <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-700 pb-2">Work Experience</h2>
       <div className="space-y-6">
         {workExperience.map((job, idx) => (
-          <div key={idx} className="border-l-4 border-orange-600 pl-4 flex items-start gap-4">
+          <div
+            key={idx}
+            className="border-l-4 border-orange-600 pl-4 flex flex-col md:flex-row items-start md:gap-4 gap-2"
+          >
             <img
               src={job.image}
               alt={`${job.company} logo`}
-              style={{ width: '15vw', height: '5vw', minWidth: '10vw', maxWidth: '15vw', objectFit: 'contain' }}
-              className="rounded-md mt-1 flex-shrink-0"
+              className="work-exp-img rounded-md mt-1 flex-shrink-0 mx-auto md:mx-0"
             />
             <div className="flex-1">
               <div className="flex justify-between items-start">
