@@ -38,7 +38,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
         
         <div className="flex justify-center space-x-4 mt-4">
           <a
-            href="https://github.com/your-profile"
+            href="https://github.com/billy1479"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
@@ -47,7 +47,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
             <Github size={20} />
           </a>
           <a
-            href="https://linkedin.com/in/your-profile"
+            href="https://www.linkedin.com/in/william-stapleton-57674b219/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"

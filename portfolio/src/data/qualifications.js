@@ -7,30 +7,53 @@ const qualifications = {
       description: "Specialized in Advanced Algorithms and Artificial Intelligence. Thesis on \"Optimizing React Applications for Performance.\""
     },
     {
-      degree: "Bachelor of Science in Computer Engineering",
-      institution: "MIT",
-      period: "2014 - 2018",
-      description: "Focused on software engineering and web development. Graduated with honors, GPA 3.8/4.0."
-    }
+      degree: "A-Levels",
+      institution: "Toot Hill College",
+      period: "2019 - 2021",
+      description: "A*: Computer Science, A: Physics, A: Mathematics, A*: EPQ"
+    },
+    {
+      degree: "GCSEs",
+      institution: "Toot Hill School",
+      period: "2018 - 2019",
+      description: "GCSE’s: Computer Science 9; Physics 9; Biology 9; Chemistry 9; Philosophy and Ethics 9; Mathematics 8; Latin 8; English Literature 8; English Language 8; Geography 8; Business Studies 7; BTEC Engineering D*"
+    },
   ],
-  experience: [
+  ms: [
     {
-      position: "Senior Frontend Developer",
-      company: "Tech Innovations Inc.",
-      period: "2020 - Present",
-      description: "Lead the development of several enterprise-level React applications. Implemented CI/CD pipelines and improved code quality standards. Mentored junior developers and conducted technical interviews."
+      degree: "Microsoft Certified: Power Platform Developer Associate",
+      institution: "Microsoft",
+      period: "2024",
+      description: "Skilled in building solutions using Microsoft Power Platform, including Power Apps, Power Automate, and Power BI.",
+      link: "https://learn.microsoft.com/en-us/users/billystapleton-2199/credentials/87f343ab500c759f?ref=https%3A%2F%2Fwww.williamstapleton.co.uk%2F"
     },
     {
-      position: "Full Stack Developer",
-      company: "WebSolutions Corp",
-      period: "2018 - 2020",
-      description: "Developed and maintained various web applications using React, Node.js, and MongoDB. Collaborated with UX/UI designers to implement responsive designs. Optimized database queries and API performance."
+      degree: "Microsoft Certified: Security, Compliance, and Identity Fundamentals",
+      institution: "Microsoft",
+      period: "2024",
+      description: "Fundamentals of security, compliance, and identity (SCI) across cloud-based and related Microsoft services.",
+      link: "https://learn.microsoft.com/en-us/users/billystapleton-2199/credentials/1ed7aa33ed1e06b4?ref=https%3A%2F%2Fwww.williamstapleton.co.uk%2F"
     },
     {
-      position: "Web Development Intern",
-      company: "StartupHub",
-      period: "Summer 2017",
-      description: "Assisted in developing and testing new features for client websites. Gained experience with JavaScript frameworks and version control systems."
+      degree: "Microsoft Certified: Azure Fundamentals",
+      institution: "Microsoft",
+      period: "2024",
+      description: "Understanding of cloud concepts, core Azure services, security, privacy, compliance, and trust.",
+      link: "https://learn.microsoft.com/en-us/users/billystapleton-2199/credentials/10ab141dc0ac0e86?ref=https%3A%2F%2Fwww.williamstapleton.co.uk%2F"
+    },
+    {
+      degree: "Microsoft Certified: Azure data fundamentals",
+      institution: "Microsoft",
+      period: "2023",
+      description: "Understanding of core data concepts and how they are implemented using Microsoft Azure data services.",
+      link: "https://learn.microsoft.com/en-us/users/billystapleton-2199/credentials/3b594add31ca3ff7?ref=https%3A%2F%2Fwww.williamstapleton.co.uk%2F"
+    },
+    {
+      degree: "Microsoft 365 Certified: Fundamentals",
+      institution: "Microsoft",
+      period: "2023",
+      description: "Fundamentals of Microsoft 365 services, including cloud concepts, core Microsoft 365 services, security, compliance, and trust.",
+      link: "https://learn.microsoft.com/en-us/users/billystapleton-2199/credentials/c155296364454923?ref=https%3A%2F%2Fwww.williamstapleton.co.uk%2F"
     }
   ]
 };

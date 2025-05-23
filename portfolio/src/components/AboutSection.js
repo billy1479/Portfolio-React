@@ -7,19 +7,12 @@ const AboutSection = () => {
         <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-700 pb-2">About Me</h2>
         <div className="space-y-4">
           <p className="text-lg text-gray-300">
-            I'm a passionate developer with 5+ years of experience creating web applications
-            that are both functional and beautiful. My journey in tech started when I built
-            my first website at 15, and I've been hooked ever since.
+            I am a 3rd year student currently enrolled on the MEng Integrated Masters Computer Science course at Durham University. 
+            I have over 3 years of experience working in Software Development, especially with the Microsoft Power Platform for business applications.
           </p>
           <p className="text-lg text-gray-300">
-            I specialize in React, Node.js, and modern JavaScript frameworks, building scalable
-            solutions for complex problems. I'm constantly exploring new technologies to 
-            stay at the cutting edge of web development.
-          </p>
-          <p className="text-lg text-gray-300">
-            When I'm not coding, you can find me hiking in the mountains, reading sci-fi novels, 
-            or experimenting with new recipes in the kitchen. I believe in maintaining a healthy
-            work-life balance to fuel creativity and innovation.
+            I’ve worked with a variety of programming languages to create multiple projects which you can see below. 
+            Some have been for work purposes, university related and personal projects.
           </p>
         </div>
       </div>
