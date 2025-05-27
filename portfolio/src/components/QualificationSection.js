@@ -20,7 +20,12 @@ const QualificationsSection = () => {
                   <span className="text-gray-400 text-sm">{item.period}</span>
                 </div>
                 <p className="text-orange-500">{item.institution}</p>
-                <p className="text-gray-400 mt-2">{item.description}</p>
+                {Array.isArray(item.description)
+                  ? item.description.map((desc, i) => (
+                      <p key={i} className="text-gray-400 mt-2">{desc}</p>
+                    ))
+                  : <p className="text-gray-400 mt-2">{item.description}</p>
+                }
               </div>
             ))}
           </div>
@@ -34,8 +39,13 @@ const QualificationsSection = () => {
                   <span className="text-gray-400 text-sm">{item.period}</span>
                 </div>
                 <p className="text-orange-500">{item.institution}</p>
-                <p className="text-gray-400 mt-2">{item.description}</p>
-                <br></br>
+                {Array.isArray(item.description)
+                  ? item.description.map((desc, i) => (
+                      <p key={i} className="text-gray-400 mt-2">{desc}</p>
+                    ))
+                  : <p className="text-gray-400 mt-2">{item.description}</p>
+                }
+                <br />
                 {item.link && (
                   <a
                     href={item.link}

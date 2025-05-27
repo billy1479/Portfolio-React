@@ -9,12 +9,13 @@ const skills = {
   frontendTechnologies: [
     { name: "React", image: "react" },
     { name: "HTML/CSS", image: "html" },
-    // { name: "Tailwind CSS", image: "tailwind" },
+    { name: "Tailwind CSS", image: "tailwind" },
     { name: "Bootstrap", image: "bootstrap" },
   ],
   backendTechnologies: [
-    // { name: "Node.js", image: "node" },
-    // { name: "MongoDB", image: "mongo" },
+    { name: "Node.js", image: "node" },
+    { name: "MongoDB", image: "mongo" },
+    { name: "MySQL", image: "mysql" },
   ],
   microsoftPowerPlatform: [
     { name: "Power Apps", image: "powerapps" },

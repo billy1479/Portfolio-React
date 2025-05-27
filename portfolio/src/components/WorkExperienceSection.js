@@ -10,7 +10,7 @@ const WorkExperienceSection = () => (
         {workExperience.map((job, idx) => (
           <div
             key={idx}
-            className="border-l-4 border-orange-600 pl-4 flex flex-col md:flex-row items-start md:gap-4 gap-2"
+            className="border-l-4 border-orange-600 pl-4 flex flex-col md:flex-row items-center gap-2 md:gap-4"
           >
             <img
               src={job.image}

@@ -50,7 +50,7 @@ const LanguagesSection = () => {
         </div>
         
         {/* Backend */}
-        <div>
+        <div className="mb-8">
           <h3 className="text-xl font-bold mb-4 text-gray-200">Backend & Other</h3>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {backendTechnologies.map((skill, index) => (
