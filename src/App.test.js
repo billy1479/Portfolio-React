@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders William Stapleton heading', () => {
+test('renders William Stapleton main heading', () => {
   render(<App />);
-  const headingElement = screen.getByText(/William Stapleton/i);
-  expect(headingElement).toBeInTheDocument();
+  const heading = screen.getByRole('heading', { name: /William Stapleton/i, level: 1 });
+  expect(heading).toBeInTheDocument();
 });
