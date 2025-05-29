@@ -34,7 +34,9 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
           />
         </div>
         <h1 className="text-xl text-gray-200 font-bold mt-2">William Stapleton</h1>
-        <p className="text-gray-400">Software Engineer</p>
+        <p className="text-gray-400">MEng Computer Science</p>
+        <p className="text-gray-400 text-sm">Junior Software Engineer</p>
+        <p className="text-gray-400 text-sm">Power Platform Developer</p>
         
         <div className="flex justify-center space-x-4 mt-4">
           <a

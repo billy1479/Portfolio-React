@@ -33,8 +33,8 @@ const projects = [
     backend: "Node.JS, PHP, MySQL",
     description: "Web app (initially in PHP, then in Node.JS) for jobsheet completion and submission. Data compiled into PDFs and emailed to accounts team. Stored data in MySQL backend.",
     links: [
-      "https://github.com/billy1479/JobSheets_NodeJS",
-      "https://github.com/billy1479/JobSheets_PHP"
+      { url: "https://github.com/billy1479/JobSheets_NodeJS", label: "NodeJS GitHub Repo" },
+      { url: "https://github.com/billy1479/JobSheets_PHP", label: "PHP GitHub Repo" }
     ],
     images: []
   },
@@ -54,7 +54,7 @@ const projects = [
     backend: "None",
     description: "Coursework for using KNN and Random Forest for the UCI Adult dataset for binary classification of income based off socio-economic factors.",
     links: [
-      "https://github.com/billy1479/AICoursework"
+      { url: "https://github.com/billy1479/AICoursework", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -64,7 +64,7 @@ const projects = [
     backend: "None",
     description: "Python-based client-server application that enables multiple users to send messages and transfer files over a network using sockets and threading. Users can authenticate, chat (direct or broadcast), and download files from a shared server folder, with all operations handled concurrently by a multi-threaded server.",
     links: [
-      "https://github.com/billy1479/NetworkingCoursework"
+      { url: "https://github.com/billy1479/NetworkingCoursework", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -74,7 +74,7 @@ const projects = [
     backend: "None",
     description: "Implements lattice reduction using the LLL algorithm and searches for the shortest vector in a given lattice basis. Designed for educational and experimental exploration of lattice algorithms and outputs the shortest vector's norm to a file.",
     links: [
-      "https://github.com/billy1479/PPCoursework"
+      { url: "https://github.com/billy1479/PPCoursework", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -84,7 +84,7 @@ const projects = [
     backend: "None",
     description: "Coursework project for Year 2 Data Science focused on enhancing and classifying X-ray images using OpenCV and neural networks. Provides automated pipelines for image correction and disease classification to support medical image analysis.",
     links: [
-      "https://github.com/billy1479/ImageProcessing"
+      { url: "https://github.com/billy1479/ImageProcessing", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -94,7 +94,7 @@ const projects = [
     backend: "None",
     description: "Coursework for solving the Travelling Salesman Problem (TSP) using various AI search algorithms. Includes both basic and enhanced implementations of Greedy Search and Ant Colony Optimization, along with scripts for running experiments and validating results.",
     links: [
-      "https://github.com/billy1479/AISearch"
+      { url: "https://github.com/billy1479/AISearch", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -104,7 +104,7 @@ const projects = [
     backend: "None",
     description: "Implements a TD3 (Twin Delayed Deep Deterministic Policy Gradient) agent for the Bipedal Walker environment using the rldurham gym. Extends the original work by Jinghao and adapts it for both the standard ('softcore') and 'hardcore' versions of the environment.",
     links: [
-      "https://github.com/billy1479/ReinforcementLearning"
+      { url: "https://github.com/billy1479/ReinforcementLearning", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -114,7 +114,7 @@ const projects = [
     backend: "None",
     description: "Simulates a VR headset and multiple headsets interacting on a virtual floor, using real IMU (Inertial Measurement Unit) data for realistic orientation and sensor fusion. The simulation is rendered in Python and produces video outputs demonstrating both pure gyroscope and sensor fusion tracking.",
     links: [
-      "https://github.com/billy1479/VRCoursework"
+      { url: "https://github.com/billy1479/VRCoursework", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -124,7 +124,7 @@ const projects = [
     backend: "Unity",
     description: "Unity game built to model the MCS building at Durham University. Consists of FPS elements, and a story where a player must traverse the levels to escape the building.",
     links: [
-      "https://1drv.ms/u/c/1ca77314ea9d2133/ETMhneoUc6cggBwFpwMAAAABRQicj7ormQdsOUaL-4GZag?e=iVKXFM"
+      { url: "https://1drv.ms/u/c/1ca77314ea9d2133/ETMhneoUc6cggBwFpwMAAAABRQicj7ormQdsOUaL-4GZag?e=iVKXFM", label: "Download/Play" }
     ],
     images: []
   },
@@ -134,7 +134,7 @@ const projects = [
     backend: "None",
     description: "Builds two different game recommendation engines using Steam gaming data - a basic system (RS1) and an advanced system (RS2) that uses NLP techniques like sentiment analysis and Transformer models to enhance recommendations. Includes evaluation tools to compare the performance of both recommendation approaches.",
     links: [
-      "https://github.com/billy1479/RecommenderSystems"
+      { url: "https://github.com/billy1479/RecommenderSystems", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -144,7 +144,7 @@ const projects = [
     backend: "None",
     description: "Implements fundamental cryptographic algorithms based on the discrete logarithm problem, including Diffie-Hellman key exchange, ElGamal encryption/decryption, and various discrete logarithm solvers. Provides both secure cryptographic operations and cryptanalysis tools.",
     links: [
-      "https://github.com/billy1479/CryptographyCoursework"
+      { url: "https://github.com/billy1479/CryptographyCoursework", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -154,7 +154,7 @@ const projects = [
     backend: "PyTorch",
     description: "Implements both generative and discriminative models using PyTorch, featuring a Conditional GAN for generating CIFAR-100 images and a CNN-based classifier for multi-class image classification on a 20-class dataset.",
     links: [
-      "https://github.com/billy1479/Deep-Learning"
+      { url: "https://github.com/billy1479/Deep-Learning", label: "GitHub Repo" }
     ],
     images: []
   },
@@ -186,7 +186,7 @@ const projects = [
     backend: "Node.JS",
     description: "React Web App for my own portfolio (this website).",
     links: [
-      "https://www.williamstapleton.co.uk"
+      { url: "https://www.williamstapleton.co.uk", label: "Portfolio Website" }
     ],
     images: []
   },
@@ -196,7 +196,7 @@ const projects = [
     backend: "Node.JS",
     description: "Node.JS web app for LBL Digital, a M365 solution provider.",
     links: [
-      "https://www.lbldigital.com"
+      { url: "https://www.lbldigital.com", label: "LBL Digital Website" }
     ],
     images: []
   },

@@ -2,14 +2,22 @@ import React, { useState } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import projectsData from '../data/projects';
 
-const ProjectsSection = () => {
-  // Get unique categories from backend or languages
-  const categories = ['All', ...new Set(projectsData.map(project => project.backend || 'Other'))];
+// Extract unique categories from all comma-separated backends
+const backendSet = new Set();
+projectsData.forEach(project => {
+  const backends = (project.backend || 'Other').split(',').map(b => b.trim());
+  backends.forEach(b => backendSet.add(b));
+});
+const categories = ['All', ...Array.from(backendSet)];
 
+const ProjectsSection = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const filteredProjects = activeFilter === 'All'
     ? projectsData
-    : projectsData.filter(project => (project.backend || 'Other') === activeFilter);
+    : projectsData.filter(project => {
+        const backends = (project.backend || 'Other').split(',').map(b => b.trim());
+        return backends.includes(activeFilter);
+      });
 
   return (
     <section id="projects" className="max-w-6xl w-full min-w-0 mb-16 bg-gray-800 rounded-xl shadow-md overflow-hidden">
@@ -58,37 +66,34 @@ const ProjectsSection = () => {
                 </div>
               )}
               <div className="p-6">
-                <span className="inline-block px-3 py-1 text-xs font-semibold text-orange-200 bg-orange-900 rounded-full mb-2">
-                  {project.backend || 'Other'}
-                </span>
+                <div className="mb-2 flex flex-wrap gap-2">
+                  {(project.backend || 'Other').split(',').map((backend, idx) => (
+                    <span
+                      key={idx}
+                      className="inline-block px-3 py-1 text-xs font-semibold text-orange-200 bg-orange-900 rounded-full"
+                    >
+                      {backend.trim()}
+                    </span>
+                  ))}
+                </div>
                 <h3 className="text-xl font-bold mb-2 text-gray-200">{project.title}</h3>
                 <div className="mb-2 text-gray-400 text-sm">
                   <strong>Languages:</strong> {project.languages}
                 </div>
                 <p className="text-gray-400 mb-4">{project.description}</p>
                 <div className="flex gap-4 mt-4">
-                  {project.links && project.links[0] && (
+                  {project.links && project.links.map((link, idx) => (
                     <a
-                      href={project.links[0]}
+                      key={idx}
+                      href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-orange-500 font-medium flex items-center gap-1 hover:text-orange-400 transition-colors duration-200"
                     >
-                      Link 1
-                      <ExternalLink size={16} />
+                      {link.label}
+                      {link.url.includes('github.com') ? <Github size={16} /> : <ExternalLink size={16} />}
                     </a>
-                  )}
-                  {project.links && project.links[1] && (
-                    <a
-                      href={project.links[1]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-orange-500 font-medium flex items-center gap-1 hover:text-orange-400 transition-colors duration-200"
-                    >
-                      Link 2
-                      <Github size={16} />
-                    </a>
-                  )}
+                  ))}
                 </div>
               </div>
             </div>
