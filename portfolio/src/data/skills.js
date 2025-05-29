@@ -5,6 +5,7 @@ const skills = {
     { name: "PHP", image: "php" },
     { name: "C#", image: "csharp" },
     { name: "C++", image: "cpp" },
+    { name: "Flutter", image: "flutter" },
   ],
   frontendTechnologies: [
     { name: "React", image: "react" },

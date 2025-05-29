@@ -7,12 +7,11 @@ const AboutSection = () => {
         <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-700 pb-2">About Me</h2>
         <div className="space-y-4">
           <p className="text-lg text-gray-300">
-            I am a 3rd year student currently enrolled on the MEng Integrated Masters Computer Science course at Durham University. 
-            I have over 3 years of experience working in Software Development, especially with the Microsoft Power Platform for business applications.
+            I'm a final-year Computer Science student at Durham University with a passion for cybersecurity and software development. Currently working as a Software Engineer at TEKGEM, I specialize in building secure applications using C# and React.js for critical infrastructure protection. Beyond my formal studies, I've pursued extensive Microsoft certifications including Power Platform Developer Associate, Azure Fundamentals, Security Compliance and Identity Fundamentals, Azure Data Fundamentals, and Microsoft 365 Fundamentals—demonstrating my commitment to staying current with industry-leading cloud technologies and security practices.
+
           </p>
           <p className="text-lg text-gray-300">
-            I’ve worked with a variety of programming languages to create multiple projects which you can see below. 
-            Some have been for work purposes, university related and personal projects.
+            My experience spans the Microsoft Power Platform, where I've developed custom solutions for universities and businesses, earning recognition including Durham University's 'Above and Beyond' award. I thrive in challenging environments and enjoy combining technical expertise with practical problem-solving to create applications that make a real difference. When I'm not coding, I'm exploring new technologies and continuously expanding my skill set through professional certifications and hands-on projects in AI, cybersecurity, and modern development frameworks.
           </p>
         </div>
       </div>

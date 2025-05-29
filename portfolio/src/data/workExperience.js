@@ -4,14 +4,14 @@ const workExperience = [
     position: 'Software Engineer Intern',
     company: 'Tekgem Ltd, Sedgefield, County Durham',    
     period: 'November 2024 – Present',
-    description: 'Software Engineer at TEKGEM specialising in development and enhancement of the UNITY cybersecurity platform. Working with C# and React.js to build and maintain this comprehensive asset and vulnerability management solution that protects critical infrastructure across industrial environments. Responsibilities include implementing secure data collection features, developing intuitive UI components for network visualisation, and creating efficient backend services that integrate with AI-powered vulnerability assessment tools',
+    description: 'Software Engineer at TEKGEM specialising in development and enhancement of the UNITY cybersecurity platform. Working with C# and React.js to build and maintain this comprehensive asset and vulnerability management solution that protects critical infrastructure across industrial environments. Responsibilities include implementing secure data collection features, developing intuitive UI components for network visualisation, and creating efficient backend services that integrate with AI-powered vulnerability assessment tools.',
     image: require('../assets/Experience/tekgem2.png')
   },
   {
     position: 'Software Developer',
     company: 'ArdenIT Ltd, Beeston, Nottingham',
     period: 'Jan 2021 – Present',
-    description: 'Developed and led workshops for IT staff across the University to develop their knowledge of SharePoint, Microsoft Teams and Outlook, Microsoft Loop, and Microsoft Power Platform',
+    description: 'As a Software Developer, I created several key business systems including an inventory management solution that used barcode allocation and scanning to monitor company stock levels, accessible through a web-based interface on a local server. I also developed two versions of a digital job sheet platform that enabled engineers to complete forms and upload receipts, with data stored on a local SQL database and automatically forwarded to the expenses department - one version built with PHP and the other with Node.JS. Using Microsoft Power Platform, I\'ve developed a comprehensive suite of internal applications including a Job Sheets system that generates invoices for accounting, a Purchase Ledger for inventory management, and a Calendar system for holiday scheduling and staff availability tracking. I\'ve also worked directly with clients to build custom Power Platform solutions for their specific business requirements, including invoicing systems, employee time-tracking applications, and data entry tools.',
     image: require('../assets/Experience/arden.png')
   },
   {
@@ -39,7 +39,7 @@ const workExperience = [
     position: 'Shop Assistant',
     company: 'Bingham Fish Bar, Bingham',
     period: 'September 2019 – September 2022',
-    description: 'Working as a shop assistant at a local takeaway throughout Years 11-13 (2019-2022), I demonstrated strong work ethic and adaptability by maintaining 2-3 shifts weekly during term time and full-time hours during COVID-19 lockdowns to save for university. I gained comprehensive hospitality experience including till operation, customer service, cooking, and food preparation while training new staff members in shop operations and delivery services. During the pandemic, I managed the business\'s collection and delivery app, expanding service to surrounding villages and coordinating with the Rosie May Foundation to deliver meals to vulnerable community members, combining charitable work with business operations. This role developed my customer service skills, financial responsibility, staff training abilities, and community awareness while demonstrating reliability and commitment throughout my A-level studies and the challenging pandemic period.',
+    description: 'Working as a shop assistant at a local takeaway throughout Years 11-13 (2019-2022), I maintained working 2-3 shifts weekly during term time and full-time hours during the COVID-19 lockdowns. I gained comprehensive hospitality experience including till operation, customer service, cooking, and food preparation while training new staff members in shop operations and delivery services. During the pandemic, I managed the business\'s collection and delivery app, expanding service to surrounding villages and coordinating with the Rosie May Foundation to deliver meals to vulnerable community members, combining charitable work with business operations. This role developed my customer service skills, financial responsibility, staff training abilities, and community awareness while demonstrating reliability and commitment throughout my A-level studies and the challenging pandemic period.',
     image: require('../assets/Experience/chippy.png')
   }
 ];
