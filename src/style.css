@@ -362,7 +362,7 @@
     overflow: hidden;
   }
   .rounded-full {
-    border-radius: calc(infinity * 1px);
+    border-radius: 100%;
   }
   .rounded-lg {
     border-radius: var(--radius-lg);

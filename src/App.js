@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Sidebar from './components/Sidebar';
 import AboutSection from './components/AboutSection';
 import QualificationsSection from './components/QualificationSection';
@@ -12,13 +12,13 @@ const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
   // Define navigation sections
-  const navSections = [
+  const navSections = useMemo(() => [
     { id: 'about', label: 'About Me' },
     { id: 'qualifications', label: 'Qualifications' },
     { id: 'experience', label: 'Experience' },
     { id: 'languages', label: 'Languages' },
     { id: 'projects', label: 'Projects' }
-  ];
+  ], []);
   
   // Handle scroll to set active section
   useEffect(() => {
