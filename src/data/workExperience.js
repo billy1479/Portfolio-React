@@ -12,7 +12,8 @@ const workExperience = [
     company: 'ArdenIT Ltd, Beeston, Nottingham',
     period: 'Jan 2021 – Present',
     description: 'As a Software Developer, I created several key business systems including an inventory management solution that used barcode allocation and scanning to monitor company stock levels, accessible through a web-based interface on a local server. I also developed two versions of a digital job sheet platform that enabled engineers to complete forms and upload receipts, with data stored on a local SQL database and automatically forwarded to the expenses department - one version built with PHP and the other with Node.JS. Using Microsoft Power Platform, I\'ve developed a comprehensive suite of internal applications including a Job Sheets system that generates invoices for accounting, a Purchase Ledger for inventory management, and a Calendar system for holiday scheduling and staff availability tracking. I\'ve also worked directly with clients to build custom Power Platform solutions for their specific business requirements, including invoicing systems, employee time-tracking applications, and data entry tools.',
-    image: require('../assets/Experience/arden.png')
+    image: require('../assets/Experience/arden.png'),
+    className: 'ardenit-img'
   },
   {
     position: 'SharePoint Advisor and Power Platform Developer',
@@ -26,7 +27,8 @@ const workExperience = [
     company: 'ArdenIT Ltd, Beeston, Nottingham',
     period: 'January 2022 – September 2022',
     description: 'As a Junior IT Engineer at ArdenIT Ltd, Beeston (January-September 2022), I provided comprehensive technical support and development solutions for UK-wide clients. Beginning with 1st and 2nd line helpdesk support for four months, I gained expertise in Windows administration, Microsoft 365, Draytek, Unifi, and Dell OpenManage Server Administrator. Progressing to on-site engineer, I handled diverse projects including PC installations across AvailableCar sites, network installations with Unifi access points, Windows Group Policy automation testing, router/switch deployments, and server installations. Concurrently serving as Software Developer, I created an inventory management system with barcode scanning functionality and web GUI for stock tracking, and developed two iterations of a job sheet system with PHP and Node.JS backends, enabling engineers to submit expenses with receipt attachments via local SQL server integration. I also began developing a Microsoft Power App to consolidate both systems for mobile access, allowing engineers to manage inventory and job sheets directly from work phones while on-site. This dual role strengthened my technical troubleshooting, project management, full-stack development, and client-facing communication skills.',
-    image: require('../assets/Experience/arden.png')
+    image: require('../assets/Experience/arden.png'),
+    className: 'ardenit-img'
   },
   {
     position: 'Laboratory Technician',

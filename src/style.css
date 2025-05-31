@@ -1000,3 +1000,27 @@ section {
     max-width: 15vw;
   }
 }
+
+@media (max-width: 1199px) {
+  .work-exp-row {
+    flex-direction: column !important;
+  }
+  .work-exp-img-col {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+    align-items: center !important;
+    display: flex !important;
+    margin-bottom: 1rem;
+  }
+  .work-exp-text-col {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+.ardenit-img {
+  width: 200px !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
