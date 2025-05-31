@@ -31,9 +31,44 @@ jest.mock('./components/ProjectsSection', () => () => <div>ProjectsSection</div>
 jest.mock('./components/WorkExperienceSection', () => () => <div>WorkExperienceSection</div>);
 jest.mock('./components/Footer', () => () => <div>Footer</div>);
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
 test('renders App without crashing', () => {
   render(<App />);
+});
+
+test('renders Sidebar', () => {
+  render(<App />);
+  expect(screen.getByText('Sidebar')).toBeInTheDocument();
+});
+
+test('renders AboutSection', () => {
+  render(<App />);
+  expect(screen.getByText('AboutSection')).toBeInTheDocument();
+});
+
+test('renders QualificationSection', () => {
+  render(<App />);
+  expect(screen.getByText('QualificationSection')).toBeInTheDocument();
+});
+
+test('renders LanguagesSection', () => {
+  render(<App />);
+  expect(screen.getByText('LanguagesSection')).toBeInTheDocument();
+});
+
+test('renders ProjectsSection', () => {
+  render(<App />);
+  expect(screen.getByText('ProjectsSection')).toBeInTheDocument();
+});
+
+test('renders WorkExperienceSection', () => {
+  render(<App />);
+  expect(screen.getByText('WorkExperienceSection')).toBeInTheDocument();
+});
+
+test('renders Footer', () => {
+  render(<App />);
+  expect(screen.getByText('Footer')).toBeInTheDocument();
 });
