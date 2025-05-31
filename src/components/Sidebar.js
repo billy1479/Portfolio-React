@@ -21,9 +21,8 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
   };
 
   return (
-    <aside className={`fixed md:sticky top-0 md:top-0 left-0 z-20 w-64 h-screen bg-gray-800 text-white transition-transform duration-300 transform ${
-      isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-    }`}>
+    <aside className={`fixed md:sticky top-0 md:top-0 left-0 z-20 w-64 h-screen bg-gray-800 text-white transition-transform duration-300
+      ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
       {/* Profile Section */}
       <div className="p-6 text-center border-b border-gray-700">
         <div className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-500 to-amber-600 rounded-full overflow-hidden border-4 border-gray-700 shadow-md mb-4">
