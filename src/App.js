@@ -9,8 +9,9 @@ import Footer from './components/Footer';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('about');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
+  const [userToggledSidebar, setUserToggledSidebar] = useState(false);
+
   // Define navigation sections
   const navSections = useMemo(() => [
     { id: 'about', label: 'About Me' },
@@ -46,9 +47,25 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [navSections]);
   
+  // Responsive sidebar open/close logic
+  useEffect(() => {
+    const handleResize = () => {
+      if (!userToggledSidebar) {
+        setIsSidebarOpen(window.innerWidth >= 768);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    // Set initial state on mount
+    if (!userToggledSidebar) {
+      setIsSidebarOpen(window.innerWidth >= 768);
+    }
+    return () => window.removeEventListener('resize', handleResize);
+  }, [userToggledSidebar]);
+  
   // Toggle sidebar for mobile
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarOpen((prev) => !prev);
+    setUserToggledSidebar(true);
   };
   
   // Scroll to section when nav link is clicked
