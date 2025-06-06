@@ -7,7 +7,7 @@ const AboutSection = () => {
         <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-700 pb-2">About Me</h2>
         <div className="space-y-4">
           <p className="text-lg text-gray-300">
-            I'm a final-year Computer Science student at Durham University with a passion for cybersecurity and software development. Currently working as a Software Engineer at TEKGEM, I specialize in building secure applications using C# and React.js for critical infrastructure protection. Beyond my formal studies, I've pursued extensive Microsoft certifications including Power Platform Developer Associate, Azure Fundamentals, Security Compliance and Identity Fundamentals, Azure Data Fundamentals, and Microsoft 365 Fundamentals—demonstrating my commitment to staying current with industry-leading cloud technologies and security practices.
+            I'm a final-year Computer Science student at Durham University with a passion for cybersecurity and software development. Currently working as a Software Engineer at TEKGEM, I specialise in building secure applications using C# and React.js for critical infrastructure protection. Beyond my formal studies, I've pursued extensive Microsoft certifications including Power Platform Developer Associate, Azure Fundamentals, Security Compliance and Identity Fundamentals, Azure Data Fundamentals, and Microsoft 365 Fundamentals—demonstrating my commitment to staying current with industry-leading cloud technologies and security practices.
 
           </p>
           <p className="text-lg text-gray-300">

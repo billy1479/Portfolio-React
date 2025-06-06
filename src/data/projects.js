@@ -7,7 +7,7 @@ const projects = [
     title: "Jobsheet system - Power App",
     languages: "Power Apps, Power Automate",
     backend: "SharePoint, Dataverse",
-    description: "Powr Platform solution for ArdenIT where staff can enter in required fields for jobsheets that are sent to the accounts team via a printed out invoice. Data modelled using SharePoint lists and Dataverse tables. Connects with Freshdesk.",
+    description: "Power Platform solution for ArdenIT where staff can enter in required fields for jobsheets that are sent to the accounts team via a printed out invoice. Data modelled using SharePoint lists and Dataverse tables. Connects with Freshdesk.",
     links: [],
     images: [require('../assets/Projects/jobsheet-system-power-app/powerapps.png')]
   },
@@ -15,7 +15,7 @@ const projects = [
     title: "Calendar",
     languages: "Power Apps, Power Automate",
     backend: "SharePoint",
-    description: "Business calendar for event planning and scheduling. Connects with Power Platform ecosystem for scheduling engineers out on site, timetabling meetings, and booking time off. Data modelled using Sharepoint lists. Connects with Freshdesk.",
+    description: "Business calendar for event planning and scheduling. Connects with Power Platform ecosystem for scheduling engineers out on site, timetabling meetings, and booking time off. Data modelled using SharePoint lists. Connects with Freshdesk.",
     links: [],
     images: [require('../assets/Projects/calendar/powerapps.png')]
   },
