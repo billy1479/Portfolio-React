@@ -27,7 +27,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
       <div className="p-6 text-center border-b border-gray-700">
         <div className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-500 to-amber-600 rounded-full overflow-hidden border-4 border-gray-700 shadow-md mb-4">
           <img 
-            src={require(`../assets/profilepicture.jpeg`)}
+            src={require(`../assets/new_profile_picture.jpeg`)}
             alt="Developer portrait" 
             className="w-full h-full object-cover"
           />

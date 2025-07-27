@@ -5,7 +5,7 @@ const qualifications = {
       institution: "Durham University",
       period: "2023 - Present",
       description: [
-        "Third Year (1st predicted): Deep Learning, Reinforcement Learning, Recommender Systems, Compiler Design, Cryptography, Parallel Scientific Computing, Game Development with VR/AR Technologies",
+        "Third Year (1.1 74%): Deep Learning, Reinforcement Learning, Recommender Systems, Compiler Design, Cryptography, Parallel Scientific Computing, Game Development with VR/AR Technologies",
         "Second Year (2.1 69%): Artificial Intelligence, Data Science, Networks and Systems, Programming Paradigms, Software Engineering, Theory of Computation",
         "First Year (2.1): Algorithms and Data Structures, Computer Systems, Maths for Computer Science, Computational Thinking, Programming, Single Mathematics A (Optional Module)"
       ]
