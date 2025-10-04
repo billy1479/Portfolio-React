@@ -34,7 +34,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
         </div>
         <h1 className="text-xl text-gray-200 font-bold mt-2">William Stapleton</h1>
         <p className="text-gray-400">MEng Computer Science</p>
-        <p className="text-gray-400 text-sm">Aspiring Software Engineer</p>
+        <p className="text-gray-400 text-sm">Software Engineer</p>
         <p className="text-gray-400 text-sm">Power Platform Developer</p>
         
         <div className="flex justify-center space-x-4 mt-4">
@@ -61,7 +61,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
         {/* Download CV Button in Topbar */}
         <div className="mt-4">
           <a
-            href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/EVxdglPHXgxFkqVab3IScB8B7sq4Y6sWaR7PgDkotROQIg?e=R7PsIf"
+            href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/EVxdglPHXgxFkqVab3IScB8B7sq4Y6sWaR7PgDkotROQIg?e=OK0xhK"
             download
             className="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 hover:bg-gray-300 rounded-lg px-3 py-2"
           >
