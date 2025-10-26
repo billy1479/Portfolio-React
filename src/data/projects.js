@@ -196,7 +196,7 @@ const projects = [
     backend: "",
     description: "Node.JS web app for LBL Digital, a M365 solution provider.",
     links: [
-      { url: "https://www.lbldigital.com", label: "LBL Digital Website" }
+      { url: "https://lbldigital.com/", label: "LBL Digital Website" }
     ],
     images: [require('../assets/Projects/lbl-digital/nodejs.png')]
   },
