@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Code, FileText, Briefcase, User, Scroll, Download } from 'lucide-react';
+import { Github, Linkedin, Code, FileText, Briefcase, User, Scroll, Download, BookOpen } from 'lucide-react';
 
 const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection }) => {
   // Icon mapping for navigation items
@@ -15,6 +15,8 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
         return <Code size={20} />;
       case 'projects':
         return <FileText size={20} />;
+      case 'dissertation':
+        return <BookOpen size={20} />;
       default:
         return null;
     }
@@ -34,9 +36,11 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
         </div>
         <h1 className="text-xl text-gray-200 font-bold mt-2">William Stapleton</h1>
         <p className="text-gray-400">MEng Computer Science</p>
-        <p className="text-gray-400 text-sm">Aspiring Software Engineer</p>
+        <br></br>
+        <p className="text-gray-400 text-sm">Incoming SE @ Red Bull Technology</p>
+        <br></br>
         <p className="text-gray-400 text-sm">Power Platform Developer</p>
-        
+        <br></br>
         <div className="flex justify-center space-x-4 mt-4">
           <a
             href="https://github.com/billy1479"
@@ -61,7 +65,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
         {/* Download CV Button in Topbar */}
         <div className="mt-4">
           <a
-            href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/ETk4C_WeNxhKj0ejnSFnkx8BmG7v50u9PM-1zn_YkekfBg?e=39mLjj"
+            href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/IQDCtv_MACHFTq3yaSpTD9NRAXcvJEELtgT7xwIUZMjhQh8?e=AiKo6T"
             download
             className="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 hover:bg-gray-300 rounded-lg px-3 py-2"
           >

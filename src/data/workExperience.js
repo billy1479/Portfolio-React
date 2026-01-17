@@ -1,5 +1,11 @@
-// src/data/workExperience.js
 const workExperience = [
+  {
+    position: 'Incoming Software Engineer',
+    company: 'Red Bull Technology, Milton Keynes',
+    period: 'Starting August 2026',
+    description: 'Joining the Aero Performance team to develop and maintain high-performance software tools supporting aerodynamic analysis and optimisation. The role focuses on working with simulation, wind-tunnel, and track-side data to enable accurate performance correlation, collaborating closely with aerodynamicists and performance engineers in a fast-paced Formula One environment.',
+    image: require('../assets/Experience/rbtech.png')
+  },
   {
     position: 'Software Developer',
     company: 'ArdenIT Ltd, Beeston, Nottingham',

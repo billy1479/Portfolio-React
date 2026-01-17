@@ -4,6 +4,7 @@ import AboutSection from './components/AboutSection';
 import QualificationsSection from './components/QualificationSection';
 import LanguagesSection from './components/LanguagesSection';
 import ProjectsSection from './components/ProjectsSection';
+import DissertationSection from './components/DissertationSection';
 import WorkExperienceSection from './components/WorkExperienceSection';
 import Footer from './components/Footer';
 
@@ -18,7 +19,8 @@ const App = () => {
     { id: 'qualifications', label: 'Qualifications' },
     { id: 'experience', label: 'Experience' },
     { id: 'languages', label: 'Languages' },
-    { id: 'projects', label: 'Projects' }
+    { id: 'projects', label: 'Projects' },
+    { id: 'dissertation', label: 'Dissertation' }
   ], []);
   
   // Handle scroll to set active section
@@ -104,6 +106,7 @@ const App = () => {
             <WorkExperienceSection />
             <LanguagesSection />
             <ProjectsSection />
+            <DissertationSection />
             <Footer />
         </div>
       </main>
