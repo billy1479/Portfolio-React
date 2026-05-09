@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artemis III — Lunar South Pole Story Explorer</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #131a2e;
+      --panel-2: #1a2240;
+      --panel-3: #202b52;
+      --text: #eef2ff;
+      --muted: #b9c1df;
+      --line: rgba(255,255,255,0.1);
+      --accent: #7cc8ff;
+      --accent-2: #ffd166;
+      --shadow: rgba(0,0,0,0.35);
+      --radius: 20px;
+      --pill: 999px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(101, 143, 255, 0.16), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(255, 209, 102, 0.10), transparent 25%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .shell {
+      width: min(1600px, calc(100vw - 24px));
+      margin: 12px auto 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .topbar,
+    .card,
+    .chapter-shell,
+    .footer-note {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)), var(--panel);
+      box-shadow: 0 18px 42px var(--shadow);
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      padding: 16px 18px;
+      display: grid;
+      gap: 12px;
+      transition: padding 180ms ease, gap 180ms ease, border-radius 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .topbar.collapsed {
+      padding: 10px 14px;
+      gap: 8px;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      flex: 1 1 360px;
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 30% 30%, #2f7cff 0%, #0b2f83 58%, #07122f 100%);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 0 18px rgba(255,255,255,0.10), 0 10px 22px rgba(0,0,0,0.22);
+      flex: 0 0 auto;
+    }
+
+    .brand-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-badge-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .brand-badge.brand-badge-du {
+      width: 92px;
+      border-radius: 14px;
+      background: #f4f7ff;
+      padding: 6px 8px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+    }
+
+    .brand h1 {
+      font-size: clamp(1.25rem, 1vw + 1rem, 2rem);
+      margin: 0;
+      letter-spacing: 0.02em;
+      transition: font-size 180ms ease;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      max-width: 70ch;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      transition: opacity 160ms ease, max-height 180ms ease, margin 180ms ease;
+      max-height: 4.6em;
+      overflow: hidden;
+    }
+
+    .topbar.collapsed .brand h1 {
+      font-size: clamp(1.05rem, 0.8vw + 0.95rem, 1.45rem);
+    }
+
+    .topbar.collapsed .brand p {
+      opacity: 0;
+      max-height: 0;
+      margin: 0;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      transition: gap 180ms ease;
+    }
+
+    .topbar.collapsed .controls {
+      gap: 8px;
+    }
+
+    .nav-pills,
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .quick-actions {
+      align-items: stretch;
+    }
+
+    .pill,
+    button,
+    select {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border-radius: var(--pill);
+      padding: 10px 14px;
+      font: inherit;
+      transition: 160ms ease;
+    }
+
+    button:hover,
+    select:hover,
+    .pill:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+      cursor: pointer;
+    }
+
+    .pill.active,
+    button.primary {
+      background: linear-gradient(135deg, rgba(124,200,255,0.24), rgba(255,209,102,0.20));
+      border-color: rgba(124,200,255,0.45);
+      color: #fff;
+    }
+
+    select {
+      min-width: 180px;
+      appearance: none;
+    }
+
+    .control-select {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px 4px 12px;
+      min-height: 42px;
+      white-space: nowrap;
+    }
+
+    .control-select span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.01em;
+    }
+
+    .control-select:hover {
+      transform: none;
+      cursor: default;
+    }
+
+    .control-select select {
+      min-width: 170px;
+      height: 32px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(11,16,32,0.7);
+      border-radius: var(--pill);
+      padding: 0 28px 0 12px;
+      line-height: 1.1;
+      transform: none;
+    }
+
+    .control-select::after {
+      content: "▾";
+      margin-left: -22px;
+      margin-right: 8px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      pointer-events: none;
+    }
+
+    .control-select select:hover,
+    .control-select select:focus {
+      transform: none;
+      background: rgba(11,16,32,0.82);
+    }
+
+    .quick-actions > button {
+      min-height: 42px;
+      padding-inline: 16px;
+    }
+
+    .chapter-shell {
+      display: grid;
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 14px;
+    }
+
+    .hero-copy {
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(124,200,255,0.10), rgba(255,255,255,0.02));
+      border: 1px solid rgba(124,200,255,0.18);
+    }
+
+    .hero-copy h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.25rem, 1.2vw + 1rem, 2rem);
+    }
+
+    .hero-copy p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 12px;
+    }
+
+    .kpi {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--panel-2);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-bottom: 8px;
+    }
+
+    .kpi .value {
+      font-size: clamp(1.2rem, 1vw + 1rem, 2rem);
+      font-weight: 700;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.9fr) minmax(320px, 0.95fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .map-card,
+    .side-column,
+    .lower-grid,
+    .footer-note {
+      min-width: 0;
+    }
+
+    .map-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .map-toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .map-toolbar h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .map-stage-wrap {
+      position: relative;
+      background: #050812;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .map-stage {
+      position: relative;
+      transform-origin: 0 0;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      width: 100%;
+    }
+
+    .map-stage.dragging {
+      cursor: grabbing;
+    }
+
+    .map-stage img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+    }
+
+    .marker {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid white;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(124,200,255,0.20);
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #0b1020;
+    }
+
+    .marker.candidate { background: var(--accent-2); box-shadow: 0 0 0 4px rgba(255,209,102,0.22); }
+    .marker.bad-zone  { background: #dc6464; box-shadow: 0 0 0 4px rgba(220,100,100,0.22); color: #fff; }
+    .marker.selected { width: 18px; height: 18px; background: #ff7b7b; box-shadow: 0 0 0 5px rgba(255,123,123,0.24); }
+
+    .hint-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hint-row span {
+      padding: 7px 10px;
+      border-radius: var(--pill);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .side-column {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .card {
+      padding: 16px;
+    }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .card p,
+    .card li,
+    .footer-note {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .legend {
+      display: grid;
+      gap: 10px;
+    }
+
+    .legend-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+    }
+
+    .swatch {
+      width: 60px;
+      height: 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      flex: 0 0 auto;
+    }
+
+    .tag-list,
+    .site-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .tag,
+    .site-button {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      width: 100%;
+      text-align: left;
+    }
+
+    .site-button small {
+      display: block;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .site-button.active {
+      border-color: rgba(255,209,102,0.45);
+      background: rgba(255,209,102,0.12);
+    }
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .lower-grid .card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .lower-grid .card.full-width .chart {
+      height: auto;
+    }
+
+    .chart {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+
+    .footer-note {
+      padding: 14px 18px;
+      font-size: 0.92rem;
+    }
+
+    .scroll-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: var(--pill);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(8, 13, 26, 0.92);
+      color: var(--text);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.28);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+      transition: opacity 180ms ease, transform 180ms ease, background 160ms ease;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .scroll-top:hover {
+      background: rgba(20, 30, 58, 0.96);
+    }
+
+    .error {
+      padding: 18px;
+      color: #ffd4d4;
+      background: rgba(139, 48, 48, 0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .hero,
+      .main-grid,
+      .lower-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100vw - 12px, 100%);
+        margin: 6px auto 14px;
+      }
+
+      .topbar,
+      .chapter-shell,
+      .card,
+      .footer-note {
+        border-radius: 16px;
+      }
+
+      .brand-main {
+        align-items: flex-start;
+      }
+
+      .brand-badge {
+        width: 48px;
+        height: 48px;
+      }
+
+      .brand-badge.brand-badge-du {
+        width: 76px;
+        padding: 4px 6px;
+      }
+
+      .scroll-top {
+        right: 12px;
+        bottom: 12px;
+      }
+
+      .control-select {
+        flex: 1 1 240px;
+      }
+
+      .control-select select {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar" id="topbar">
+      <div class="brand">
+        <div class="brand-main">
+          <div class="brand-logos">
+            <div class="brand-badge">
+              <span class="brand-badge-text" aria-label="NASA">NASA</span>
+            </div>
+            <div class="brand-badge brand-badge-du">
+              <span class="brand-badge-text" aria-label="University of Dundee" style="color: #0b1020;">Dundee</span>
+            </div>
+          </div>
+          <div class="brand-text">
+            <h1>Artemis III — Lunar South Pole Story Explorer</h1>
+            <p>Explore the terrain, sunlight, shadow, and possible landing areas around the lunar south pole through an interactive story map.</p>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="nav-pills" id="chapterNav"></div>
+        <div class="quick-actions">
+          <label class="pill control-select"><span>Scale</span>
+            <select id="scaleSelect"></select>
+          </label>
+          <label class="pill control-select" id="layerWrap" style="display:none;"><span>Explore layer</span>
+            <select id="layerSelect"></select>
+          </label>
+          <label class="pill control-select" id="terrainViewWrap" style="display:none;"><span>Terrain view</span>
+            <select id="terrainViewSelect"></select>
+          </label>
+          <button id="resetViewBtn">Reset view</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="app"></div>
+
+    <div class="footer-note" id="footerNote"></div>
+  </div>
+
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll back to top">↑ Top</button>
+
+  <script src="web_export/problem2_bundle.js"></script>
+  <script>
+    (function () {
+      const DATA = window.PROBLEM2_DATA;
+      const app = document.getElementById('app');
+      const footerNote = document.getElementById('footerNote');
+      const chapterNav = document.getElementById('chapterNav');
+      const scaleSelect = document.getElementById('scaleSelect');
+      const layerSelect = document.getElementById('layerSelect');
+      const layerWrap = document.getElementById('layerWrap');
+      const terrainViewSelect = document.getElementById('terrainViewSelect');
+      const terrainViewWrap = document.getElementById('terrainViewWrap');
+      const resetViewBtn = document.getElementById('resetViewBtn');
+      const topbar = document.getElementById('topbar');
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+      if (!DATA || !DATA.scales) {
+        app.innerHTML = `<div class="error"><strong>Map data unavailable.</strong><br><br>
+          This view needs its map bundle to display the lunar south pole layers.</div>`;
+        footerNote.textContent = 'The interactive map is ready once the data bundle is available.';
+        return;
+      }
+
+      const state = {
+        chapter: DATA.chapterOrder[0],
+        scaleKey: DATA.defaultScale,
+        layer: 'terrain',
+        terrainView: 'normal',
+        selected: null,
+        zoneView: 'good',   // persists good/bad dropdown choice across renders
+        zoom: 1,
+        tx: 0,
+        ty: 0,
+      };
+
+      function currentScale() {
+        return DATA.scales[state.scaleKey];
+      }
+
+      function chapterData() {
+        return currentScale().chapters[state.chapter];
+      }
+
+      function mapLayerForChapter() {
+        if (state.chapter === 'landscape') return 'terrain';
+        if (state.chapter === 'light') return 'illumination';
+        if (state.chapter === 'access') return 'access';
+        if (state.chapter === 'ready') return 'suitability';
+        return state.layer;
+      }
+
+      function formatNumber(v, digits = 0) {
+        if (!Number.isFinite(v)) return 'n/a';
+        return Number(v).toLocaleString(undefined, { maximumFractionDigits: digits, minimumFractionDigits: digits });
+      }
+
+      function html(strings, ...values) {
+        return strings.reduce((acc, s, i) => acc + s + (values[i] ?? ''), '');
+      }
+
+      function renderNav() {
+        chapterNav.innerHTML = '';
+        DATA.chapterOrder.forEach(key => {
+          const btn = document.createElement('button');
+          btn.className = 'pill' + (state.chapter === key ? ' active' : '');
+          btn.textContent = DATA.chapterLabels[key];
+          btn.onclick = () => {
+            const prev = state.chapter;
+            state.chapter = key;
+            // Reset zone dropdown when navigating TO Mission Ready fresh,
+            // but not when re-rendering within it (so selection persists).
+            if (key === 'ready' && prev !== 'ready') state.zoneView = 'good';
+            if (key !== 'explore') state.layer = mapLayerForChapter();
+            render();
+          };
+          chapterNav.appendChild(btn);
+        });
+      }
+
+      function renderSelectors() {
+        scaleSelect.innerHTML = Object.values(DATA.scales)
+          .map(scale => `<option value="${scale.key}" ${scale.key === state.scaleKey ? 'selected' : ''}>${scale.label}</option>`)
+          .join('');
+
+        layerSelect.innerHTML = Object.entries(DATA.layerLabels)
+          .map(([key, label]) => `<option value="${key}" ${key === state.layer ? 'selected' : ''}>${label}</option>`)
+          .join('');
+
+        layerWrap.style.display = state.chapter === 'explore' ? 'inline-flex' : 'none';
+
+        /* Populate and show terrain-view selector only on the landscape chapter */
+        const scale = currentScale();
+        const tv = scale.terrainViews;
+        if (tv && state.chapter === 'landscape') {
+          terrainViewSelect.innerHTML = Object.entries(tv)
+            .map(([key, v]) => `<option value="${key}" ${key === state.terrainView ? 'selected' : ''}>${v.label}</option>`)
+            .join('');
+          terrainViewWrap.style.display = 'inline-flex';
+        } else {
+          terrainViewWrap.style.display = 'none';
+        }
+      }
+
+
+      function kpisForScale(scale) {
+        const s = scale.stats;
+        return [
+          { label: 'Height range', value: `${formatNumber(s.elevationRangeM)} m` },
+          { label: 'Dark shadow', value: `${formatNumber(s.psrPct, 1)}%` },
+          { label: 'Brighter nearby ground', value: `${formatNumber(s.landingPct, 1)}%` },
+          { label: 'Best landing balance', value: formatNumber(s.bestSuitability, 2) },
+        ];
+      }
+
+      function makeLegend(chapter) {
+        const s = currentScale().stats;
+        if (chapter === 'landscape') {
+          const items = [];
+          const tv = state.terrainView;
+          if (tv === 'normal' || tv === 'contour') {
+            items.push(['linear-gradient(90deg, #212633, #e6e9ef)', `Elevation: ${formatNumber(s.elevationMinM)} m → ${formatNumber(s.elevationMaxM)} m`]);
+          } else {
+            items.push(['linear-gradient(90deg, #440154, #21918c, #fde725)', `Elevation: ${formatNumber(s.elevationMinM)} m → ${formatNumber(s.elevationMaxM)} m`]);
+          }
+          items.push(['linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.8))', 'Hillshading reveals surface shape']);
+          if (tv === 'contour' || tv === 'all') {
+            items.push(['rgba(255,255,255,0.5)', 'Contour lines = equal-height bands']);
+          }
+          return items;
+        }
+        if (chapter === 'light') {
+          return [
+            ['linear-gradient(90deg, #0b1020, #efd06f)', `Sunlight: ${formatNumber(s.illuminationMinPct, 0)}% → ${formatNumber(s.illuminationMaxPct, 0)}%`],
+            ['#00d4ff', `Cyan outline = very dark shadow (≤ ${(10).toFixed(0)}%)`],
+          ];
+        }
+        if (chapter === 'access') {
+          return [
+            ['#00d4ff', 'Dark shadow (may trap water ice)'],
+            ['#f7c84a', 'Brighter nearby ground (≥ 50% sunlight)'],
+          ];
+        }
+        if (chapter === 'ready') {
+          return [
+            ['linear-gradient(90deg, #440154, #21918c, #fde725)', `Landing balance: 0.00 → ${formatNumber(s.bestSuitability, 2)}`],
+            ['#ffd166', 'Candidate sites'],
+          ];
+        }
+        return [
+          ['linear-gradient(90deg, #212633, #e6e9ef)', `Elevation: ${formatNumber(s.elevationMinM)} → ${formatNumber(s.elevationMaxM)} m`],
+          ['linear-gradient(90deg, #0b1020, #efd06f)', `Sunlight: ${formatNumber(s.illuminationMinPct, 0)} → ${formatNumber(s.illuminationMaxPct, 0)}%`],
+          ['linear-gradient(90deg, #440154, #21918c, #fde725)', `Landing balance: 0.00 → ${formatNumber(s.bestSuitability, 2)}`],
+        ];
+      }
+
+      function lookupInspectValue(scale, key, nx, ny) {
+        const grid = scale.inspect[key];
+        const [h, w] = grid.shape;
+        const col = Math.max(0, Math.min(w - 1, Math.round(nx * (w - 1))));
+        const row = Math.max(0, Math.min(h - 1, Math.round(ny * (h - 1))));
+        const val = grid.values[row * w + col];
+        if (val === grid.missing) return NaN;
+        return val / (grid.scale || 1) - (grid.offset || 0);
+      }
+
+      function nearestHotspot(scale, nx, ny) {
+        // nx, ny are normalised [0,1] click positions in the displayed image.
+        // Compare against normX/normY (pixel fractions in the data grid) which
+        // map to the same [0,1] space via PyGMT's Cartesian projection.
+        let best = null, bestDist = Infinity;
+        const pool = [
+          ...(scale.hotspots   || []),
+          ...(scale.candidates || []),
+          ...(scale.badZones   || []),
+        ];
+        pool.forEach(h => {
+          const hx = h.normX != null ? h.normX : h.col / Math.max(1, scale.width  - 1);
+          const hy = h.normY != null ? h.normY : h.row / Math.max(1, scale.height - 1);
+          const d = Math.hypot(hx - nx, hy - ny);
+          if (d < bestDist) { best = h; bestDist = d; }
+        });
+        return best;
+      }
+
+      function defaultSelected(scale) {
+        return scale.candidates[0] || scale.hotspots[0] || null;
+      }
+
+      function createHistogramSvg(hist, opts = {}) {
+        const width = opts.width || 560;
+        const height = opts.height || 220;
+        const padding = { top: 20, right: 18, bottom: 32, left: 52 };
+        const counts = hist.counts || [];
+        const edges = hist.edges || [];
+        const unit = hist.unit || '';
+        const maxCount = Math.max(1, ...counts);
+        const innerW = width - padding.left - padding.right;
+        const innerH = height - padding.top - padding.bottom;
+        const bars = counts.map((count, i) => {
+          const x = padding.left + (i / counts.length) * innerW;
+          const w = innerW / counts.length - 2;
+          const h = (count / maxCount) * innerH;
+          const y = padding.top + innerH - h;
+          return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${Math.max(1, w).toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="rgba(124,200,255,0.82)"></rect>`;
+        }).join('');
+        const ticks = [0, 0.5, 1].map(frac => {
+          const y = padding.top + innerH - frac * innerH;
+          return `<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="rgba(255,255,255,0.08)" />`;
+        }).join('');
+
+        const yLabels = `
+          <text x="${padding.left - 6}" y="${padding.top + 4}" text-anchor="end" fill="rgba(255,255,255,0.6)" font-size="11">${maxCount.toLocaleString()}</text>
+          <text x="${padding.left - 6}" y="${padding.top + innerH}" text-anchor="end" fill="rgba(255,255,255,0.6)" font-size="11">0</text>
+          <text transform="rotate(-90)" x="${-(padding.top + innerH / 2)}" y="12" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="11">Frequency</text>`;
+        const xLabels = edges.length
+          ? `<text x="${padding.left}" y="${height - 8}" fill="rgba(255,255,255,0.7)" font-size="12">${edges[0].toFixed(0)}${unit}</text>
+             <text x="${width - padding.right}" y="${height - 8}" text-anchor="end" fill="rgba(255,255,255,0.7)" font-size="12">${edges[edges.length - 1].toFixed(0)}${unit}</text>`
+          : '';
+        return `<svg class="chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Histogram">${ticks}${bars}${yLabels}${xLabels}</svg>`;
+      }
+
+      function createCompositionSvg(comp, opts = {}) {
+        const width = opts.width || 560;
+        const height = opts.height || 220;
+        const total = (comp.values || []).reduce((a, b) => a + b, 0) || 1;
+        const colors = ['#00d4ff', '#f7c84a', '#7185b6'];
+        let x = 18;
+        const y = 42;
+        const barH = 34;
+        const innerW = width - 36;
+        const rects = (comp.values || []).map((v, i) => {
+          const w = innerW * (v / total);
+          const out = `<rect x="${x.toFixed(1)}" y="${y}" width="${w.toFixed(1)}" height="${barH}" fill="${colors[i % colors.length]}"></rect>`;
+          x += w;
+          return out;
+        }).join('');
+        const labels = (comp.labels || []).map((label, i) => {
+          const v = (comp.values || [])[i] || 0;
+          return `<g transform="translate(20, ${100 + i * 34})">
+              <circle cx="6" cy="-4" r="6" fill="${colors[i % colors.length]}"></circle>
+              <text x="20" y="0" fill="white" font-size="13">${label}</text>
+              <text x="${width - 40}" y="0" text-anchor="end" fill="rgba(255,255,255,0.75)" font-size="13">${v.toFixed(1)}%</text>
+            </g>`;
+        }).join('');
+        return `<svg class="chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Composition chart">
+          <text x="18" y="24" fill="rgba(255,255,255,0.85)" font-size="13">How this view breaks down</text>
+          ${rects}
+          ${labels}
+        </svg>`;
+      }
+
+      function createScatterSvg(points, opts = {}) {
+        const width = opts.width || 560;
+        const height = opts.height || 220;
+        const pad = { top: 18, right: 20, bottom: 34, left: 52 };
+        if (!points || !points.length) return '<div class="error">No scatterplot data.</div>';
+        const xs = points.map(p => p.elevationKm);
+        const ys = points.map(p => p.sunlightPct);
+        const xmin = Math.min(...xs), xmax = Math.max(...xs);
+        const ymin = 0, ymax = Math.max(100, ...ys);
+        const innerW = width - pad.left - pad.right;
+        const innerH = height - pad.top - pad.bottom;
+        const circles = points.map(p => {
+          const x = pad.left + ((p.elevationKm - xmin) / Math.max(1e-6, xmax - xmin)) * innerW;
+          const y = pad.top + innerH - ((p.sunlightPct - ymin) / Math.max(1e-6, ymax - ymin)) * innerH;
+          const r = 1.5 + (p.suitability || 0) * 3.0;
+          const lum = 30 + Math.round((p.suitability || 0) * 55);
+          const fill = `hsla(195, 75%, ${lum}%, 0.60)`;
+          return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${fill}"></circle>`;
+        }).join('');
+        const grid = [0, 0.5, 1].map(frac => {
+          const y = pad.top + innerH - frac * innerH;
+          const label = Math.round(ymin + frac * (ymax - ymin));
+          return `<line x1="${pad.left}" y1="${y}" x2="${width - pad.right}" y2="${y}" stroke="rgba(255,255,255,0.08)" />`
+               + `<text x="${pad.left - 6}" y="${y + 4}" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="10">${label}</text>`;
+        }).join('');
+        return `<svg class="chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Scatter plot: elevation vs sunlight, sized by suitability">
+          ${grid}
+          ${circles}
+          <text x="${pad.left}" y="${height - 8}" fill="rgba(255,255,255,0.72)" font-size="12">Elevation: ${xmin.toFixed(1)} km</text>
+          <text x="${width - pad.right}" y="${height - 8}" text-anchor="end" fill="rgba(255,255,255,0.72)" font-size="12">${xmax.toFixed(1)} km</text>
+          <text transform="rotate(-90)" x="${-(pad.top + innerH / 2)}" y="12" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="11">Sunlight %</text>
+          <text x="${width - pad.right}" y="${pad.top - 4}" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="10">Larger + brighter = higher suitability</text>
+        </svg>`;
+      }
+
+      /**
+       * InfoVis grouped bar chart: suitability channel breakdown per candidate.
+       *
+       * Shows BOTH good candidates and bad zones side-by-side so the chart has
+       * meaningful contrast. Good sites cluster near the top of the scale;
+       * bad zones reveal which channel fails for each failure mode.
+       * Redundant coding (bar height + fill colour) [Lecture 3].
+       * CVD-safe colours — no red/green pairing [Lecture 3 accessibility].
+       */
+      function createSuitabilityBreakdownSvg(candidates, badZones) {
+        const allSites = [
+          ...(candidates || []).slice(0, 3),
+          ...(badZones || []).slice(0, 3),
+        ];
+        if (!allSites.length) return '<div class="error">No candidate data.</div>';
+        const hasChannels = allSites.some(c => c.channelScores && !isNaN(c.channelScores.flatness));
+        if (!hasChannels) return '<div class="error">Re-run problem2.py to generate channel scores.</div>';
+
+        const pad = { top: 28, right: 8, bottom: 62, left: 34 };
+        const width = 1280;
+        const height = 210;
+        const plotW = width - pad.left - pad.right;
+        const plotH = height - pad.top - pad.bottom;
+
+        const channels = [
+          { key: 'flatness',     label: 'Terrain',  weight: '40%', colour: '#5B8DB8' },
+          { key: 'illumination', label: 'Sunlight',  weight: '35%', colour: '#F0A500' },
+          { key: 'psrProximity', label: 'Ice access', weight: '25%', colour: '#00C5B5' },
+        ];
+
+        // Divider between good and bad groups
+        const nGood = Math.min((candidates || []).length, 3);
+        const nBad  = Math.min((badZones || []).length, 3);
+        const nGroups = nGood + nBad;
+        const nBars = channels.length;
+        const groupW  = plotW / nGroups;
+        const barW    = (groupW * 0.70) / nBars;
+        const gapBar  = Math.max((groupW * 0.70 - barW * nBars) / Math.max(nBars - 1, 1), 0);
+        const gapSide = groupW * 0.15;
+
+        // Y-axis grid
+        let grid = '';
+        for (let v = 0; v <= 1.0; v += 0.25) {
+          const y = pad.top + plotH * (1 - v);
+          grid += `<line x1="${pad.left}" x2="${pad.left + plotW}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"
+            stroke="rgba(255,255,255,${v === 0 ? 0.35 : 0.10})" stroke-width="${v === 0 ? 1 : 0.5}"/>`;
+          if (v > 0)
+            grid += `<text x="${(pad.left - 3).toFixed(1)}" y="${(y + 3).toFixed(1)}" text-anchor="end"
+              fill="rgba(255,255,255,0.4)" font-size="7.5">${(v * 100).toFixed(0)}</text>`;
+        }
+        grid += `<text transform="rotate(-90)" x="${-(pad.top + plotH / 2).toFixed(1)}" y="9"
+          text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="7.5">Score (0–100)</text>`;
+
+        // Good / bad background bands
+        const goodBandW = nGood * groupW;
+        const badBandW  = nBad  * groupW;
+        grid += `<rect x="${pad.left}" y="${pad.top}" width="${goodBandW.toFixed(1)}" height="${plotH}"
+          fill="rgba(0,197,181,0.04)" rx="2"/>`;
+        grid += `<rect x="${(pad.left + goodBandW).toFixed(1)}" y="${pad.top}" width="${badBandW.toFixed(1)}" height="${plotH}"
+          fill="rgba(220,50,50,0.06)" rx="2"/>`;
+
+        // Section headers
+        const goodCX = pad.left + goodBandW / 2;
+        const badCX  = pad.left + goodBandW + badBandW / 2;
+        grid += `<text x="${goodCX.toFixed(1)}" y="${(pad.top - 14).toFixed(1)}" text-anchor="middle"
+          fill="rgba(0,197,181,0.85)" font-size="8" font-weight="600">✓ Good zones</text>`;
+        grid += `<text x="${badCX.toFixed(1)}" y="${(pad.top - 14).toFixed(1)}" text-anchor="middle"
+          fill="rgba(220,100,100,0.85)" font-size="8" font-weight="600">✗ Bad zones</text>`;
+
+        // Divider line between good and bad
+        const divX = (pad.left + goodBandW).toFixed(1);
+        grid += `<line x1="${divX}" x2="${divX}" y1="${pad.top}" y2="${(pad.top + plotH).toFixed(1)}"
+          stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-dasharray="3,2"/>`;
+
+        // Bars
+        let bars = '';
+        allSites.forEach((site, gi) => {
+          const isBad = !!site.isBadZone;
+          const scores = site.channelScores || {};
+          const gx = pad.left + gi * groupW + gapSide;
+          channels.forEach((ch, ci) => {
+            const raw = scores[ch.key];
+            const val = isNaN(raw) ? 0 : Math.max(0, Math.min(1, raw));
+            const bx = gx + ci * (barW + gapBar);
+            const bh = val * plotH;
+            const by = pad.top + plotH - bh;
+            const fill = isBad
+              ? ['rgba(180,80,80,0.85)', 'rgba(180,130,50,0.85)', 'rgba(80,150,150,0.85)'][ci]
+              : ch.colour;
+            bars += `<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}"
+              width="${barW.toFixed(1)}" height="${Math.max(bh, 1.5).toFixed(1)}"
+              fill="${fill}" opacity="${isBad ? 0.75 : 0.9}" rx="1">
+              <title>${site.name}: ${ch.label} = ${(val*100).toFixed(0)}/100</title>
+            </rect>`;
+          });
+
+          const cx = gx + (nBars * barW + (nBars - 1) * gapBar) / 2;
+          // Line 1: short site label
+          const shortLabel = isBad
+            ? site.name.replace('Worst ', '').replace(' slope','').replace(' shadow','').replace(' from ice','').replace(' balance','')
+            : site.name.replace('Candidate ', '');
+          bars += `<text x="${cx.toFixed(1)}" y="${(pad.top + plotH + 9).toFixed(1)}"
+            text-anchor="middle" fill="rgba(255,255,255,${isBad ? 0.55 : 0.75})" font-size="8">
+            ${shortLabel}</text>`;
+          // Line 2: selection method in italics (e.g. "Best sunlight", "Steep slope")
+          if (site.selectionMethod) {
+            // Truncate to ~14 chars to fit narrow columns
+            const method = site.selectionMethod.length > 14
+              ? site.selectionMethod.slice(0, 13) + '…'
+              : site.selectionMethod;
+            bars += `<text x="${cx.toFixed(1)}" y="${(pad.top + plotH + 19).toFixed(1)}"
+              text-anchor="middle" fill="rgba(255,255,255,0.38)" font-size="6.5" font-style="italic">
+              ${method}</text>`;
+          }
+          // Composite score above tallest bar
+          if (!isNaN(site.suitability)) {
+            const topY = pad.top + plotH * (1 - site.suitability) - 3;
+            bars += `<text x="${cx.toFixed(1)}" y="${topY.toFixed(1)}"
+              text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7">
+              ${(site.suitability * 100).toFixed(0)}</text>`;
+          }
+        });
+
+        // Channel colour legend
+        let legend = '';
+        const legendY = pad.top + plotH + 30;
+        const ls = plotW / channels.length;
+        channels.forEach((ch, i) => {
+          const lx = pad.left + i * ls;
+          legend += `<rect x="${lx.toFixed(1)}" y="${legendY}" width="7" height="7" fill="${ch.colour}" rx="1"/>`;
+          legend += `<text x="${(lx + 9).toFixed(1)}" y="${legendY + 6}"
+            fill="rgba(255,255,255,0.55)" font-size="7">${ch.label} (${ch.weight})</text>`;
+        });
+
+        return `<svg class="chart" viewBox="0 0 ${width} ${height}" role="img"
+          aria-label="Grouped bar chart: good candidates vs bad zones channel breakdown">
+          ${grid}${bars}${legend}
+        </svg>`;
+      }
+
+      /**
+       * Radar / spider chart comparing candidates across three suitability channels.
+       * Each candidate is a filled polygon; overlapping polygons reveal profile
+       * differences directly. Three axes = minimal cognitive load for a general
+       * audience [Lecture 1 – working memory], and the area encoding provides a
+       * natural pre-attentive signal for overall balance [Lecture 3].
+       * CVD-safe palette (no red-green pairing) [Lecture 3 accessibility].
+       */
+      function createRadarSvg(candidates) {
+        if (!candidates || !candidates.length) return '<div class="error">No candidate data.</div>';
+        const hasChannels = candidates.some(c => c.channelScores && !isNaN(c.channelScores.flatness));
+        if (!hasChannels) return '<div class="error">Re-run problem2.py to generate channel scores.</div>';
+
+        const width = 260, height = 220;
+        const cx = width / 2, cy = height / 2 - 8;
+        const R = 72;   // outer radius
+        const axes = [
+          { key: 'flatness',     label: 'Terrain' },
+          { key: 'illumination', label: 'Sunlight' },
+          { key: 'psrProximity', label: 'Ice access' },
+        ];
+        const n = axes.length;
+        // Angles: start at top (−π/2), evenly spaced
+        const angle = i => -Math.PI / 2 + (2 * Math.PI * i) / n;
+
+        // Grid rings
+        let grid = '';
+        [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+          const pts = axes.map((_, i) => {
+            const a = angle(i);
+            return `${(cx + frac * R * Math.cos(a)).toFixed(1)},${(cy + frac * R * Math.sin(a)).toFixed(1)}`;
+          }).join(' ');
+          grid += `<polygon points="${pts}" fill="none"
+            stroke="rgba(255,255,255,${frac === 1 ? 0.2 : 0.09})" stroke-width="${frac === 1 ? 1 : 0.5}"/>`;
+          if (frac < 1) {
+            // tick label on the first axis
+            const a0 = angle(0);
+            const tx = cx + frac * R * Math.cos(a0);
+            const ty = cy + frac * R * Math.sin(a0);
+            grid += `<text x="${(tx - 3).toFixed(1)}" y="${(ty + 3).toFixed(1)}"
+              text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="6.5">${(frac*100).toFixed(0)}</text>`;
+          }
+        });
+
+        // Axis spokes + labels
+        axes.forEach((ax, i) => {
+          const a = angle(i);
+          const ox = cx + R * Math.cos(a), oy = cy + R * Math.sin(a);
+          grid += `<line x1="${cx}" y1="${cy}" x2="${ox.toFixed(1)}" y2="${oy.toFixed(1)}"
+            stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>`;
+          // Label offset outward
+          const lx = cx + (R + 13) * Math.cos(a);
+          const ly = cy + (R + 13) * Math.sin(a);
+          const anchor = Math.cos(a) > 0.3 ? 'start' : Math.cos(a) < -0.3 ? 'end' : 'middle';
+          grid += `<text x="${lx.toFixed(1)}" y="${(ly + 3).toFixed(1)}"
+            text-anchor="${anchor}" fill="rgba(255,255,255,0.65)" font-size="8.5" font-weight="600"
+            >${ax.label}</text>`;
+        });
+
+        // CVD-safe palette for up to 5 candidates
+        const palette = ['#5B8DB8','#F0A500','#00C5B5','#C97DD4','#7DBF8C'];
+
+        // Candidate polygons (draw in reverse so A is on top)
+        let polys = '';
+        [...candidates].reverse().forEach((cand, ri) => {
+          const gi = candidates.length - 1 - ri;
+          const scores = cand.channelScores || {};
+          const pts = axes.map((ax, i) => {
+            const raw = scores[ax.key];
+            const val = isNaN(raw) ? 0 : Math.max(0, Math.min(1, raw));
+            const a = angle(i);
+            return `${(cx + val * R * Math.cos(a)).toFixed(1)},${(cy + val * R * Math.sin(a)).toFixed(1)}`;
+          }).join(' ');
+          const colour = palette[gi % palette.length];
+          const isSelected = cand.isPrimaryRecommendation;
+          polys += `<polygon points="${pts}" fill="${colour}"
+            fill-opacity="${isSelected ? 0.30 : 0.14}"
+            stroke="${colour}" stroke-width="${isSelected ? 2 : 1.2}" stroke-opacity="0.9">
+            <title>${cand.name}: ${axes.map(ax => {
+              const v = scores[ax.key]; return `${ax.label} ${isNaN(v) ? '?' : (v*100).toFixed(0)}`;
+            }).join(', ')}</title>
+          </polygon>`;
+        });
+
+        // Legend
+        let legend = '';
+        const legendY = cy + R + 24;
+        const legendSpacing = width / candidates.length;
+        candidates.forEach((cand, i) => {
+          const lx = 8 + i * legendSpacing;
+          const colour = palette[i % palette.length];
+          legend += `<rect x="${lx}" y="${legendY}" width="7" height="7" fill="${colour}" rx="1" opacity="0.9"/>`;
+          legend += `<text x="${lx + 9}" y="${legendY + 6.5}"
+            fill="rgba(255,255,255,${cand.isPrimaryRecommendation ? 0.85 : 0.55})"
+            font-size="7.5" font-weight="${cand.isPrimaryRecommendation ? '700' : '400'}"
+            >${cand.name.replace('Candidate ','Cand. ')}</text>`;
+        });
+
+        return `<svg viewBox="0 0 ${width} ${height}" role="img"
+          style="width:100%;height:auto;display:block;"
+          aria-label="Radar chart: suitability channel profiles per candidate">
+          ${grid}${polys}${legend}
+        </svg>`;
+      }
+
+      function buildSidebar(scale, chapterInfo, chapter) {
+        const legendItems = makeLegend(chapter)
+          .map(([swatch, label]) => `<div class="legend-item"><span class="swatch" style="background:${swatch}"></span><span>${label}</span></div>`)
+          .join('');
+
+        const selected = state.selected || defaultSelected(scale);
+        const p1Note = selected && selected.isPrimaryRecommendation
+          ? `<div style="margin-top:6px;padding:5px 7px;border-radius:4px;background:rgba(240,165,0,0.15);border-left:3px solid #f0a500;font-size:11px;color:rgba(255,255,255,0.75);">
+               ★ Matches the Problem 1 best-site marker — highest-scoring pixel under identical suitability parameters (σ=1.0, PSR 10%, weights 0.40/0.35/0.25).
+             </div>`
+          : '';
+        const badNote = selected && selected.isBadZone
+          ? `<div style="margin-top:6px;padding:5px 7px;border-radius:4px;background:rgba(200,60,60,0.15);border-left:3px solid #dc6464;font-size:11px;color:rgba(255,255,255,0.75);">
+               ✗ ${selected.reason || 'Poor channel scores'}<br>
+               <span style="opacity:0.6;font-size:10px;">Selected by: ${selected.selectionCriterion || ''}</span>
+             </div>`
+          : '';
+        const goodNote = selected && !selected.isBadZone && selected.selectionCriterion
+          ? `<div style="margin-top:6px;padding:5px 7px;border-radius:4px;background:rgba(0,197,181,0.10);border-left:3px solid #00c5b5;font-size:11px;color:rgba(255,255,255,0.75);">
+               ✓ ${selected.selectionCriterion}
+             </div>`
+          : '';
+        const selectedCard = selected ? `
+          <div class="card">
+            <h3>Selected place</h3>
+            <p><strong>${selected.name || 'Chosen location'}</strong></p>
+            ${selected.selectionMethod ? `<p style="font-size:11px;color:rgba(255,255,255,0.5);margin:2px 0 4px;font-style:italic;">${selected.selectionMethod}</p>` : ''}
+            <p>${selected.selectionCriterion || selected.summary || selected.description || ''}</p>
+            ${selected.elevationM != null ? `<div class="tag-list">
+              <div class="tag">Height: ${formatNumber(selected.elevationM, 0)} m</div>
+              ${selected.illuminationPct != null ? `<div class="tag">Sunlight: ${formatNumber(selected.illuminationPct, 0)}%</div>` : ''}
+              ${selected.slopeDeg != null ? `<div class="tag">Slope: ${formatNumber(selected.slopeDeg, 1)}°</div>` : ''}
+              ${selected.suitability != null ? `<div class="tag">Score: ${formatNumber(selected.suitability, 2)}</div>` : ''}
+            </div>` : ''}
+            ${p1Note}${badNote}${goodNote}
+          </div>` : '';
+
+        // Build good/bad zone buttons for the dropdown zone card
+        const goodButtons = (scale.candidates || []).map(item => {
+          const isPrimary = item.isPrimaryRecommendation;
+          const badge = isPrimary
+            ? `<span style="display:inline-block;margin-left:5px;padding:1px 4px;border-radius:3px;background:#f0a500;color:#1a1a2e;font-size:9px;font-weight:700;vertical-align:middle;">= P1</span>`
+            : '';
+          return `<button class="site-button ${state.selected && state.selected.id === item.id ? 'active' : ''}" data-target="${item.id}">
+            <strong>${item.name}${badge}</strong>
+            <small>${item.description || ''}</small>
+          </button>`;
+        }).join('');
+
+        const badButtons = (scale.badZones || []).map(item =>
+          `<button class="site-button ${state.selected && state.selected.id === item.id ? 'active' : ''}" data-target="${item.id}"
+            style="border-left:2px solid rgba(220,100,100,0.5);">
+            <strong style="color:rgba(220,160,160,1);">✗ ${item.name}</strong>
+            <small>${item.reason || item.description || ''}</small>
+          </button>`
+        ).join('');
+
+        // Zone type card with dropdown selector (only shown in Mission Ready)
+        const zoneCard = chapter === 'ready' ? `
+          <div class="card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <h3 style="margin:0;">Landing zones</h3>
+              <select id="zone-selector" style="background:#1e2240;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:2px 6px;font-size:11px;cursor:pointer;">
+                <option value="good" ${state.zoneView === 'good' ? 'selected' : ''}>✓ Good zones</option>
+                <option value="bad"  ${state.zoneView === 'bad'  ? 'selected' : ''}>✗ Bad zones</option>
+              </select>
+            </div>
+            <div id="zone-good" class="site-list" style="${state.zoneView === 'good' ? '' : 'display:none;'}">${goodButtons}</div>
+            <div id="zone-bad"  class="site-list" style="${state.zoneView === 'bad'  ? '' : 'display:none;'}">${badButtons}</div>
+          </div>` : `
+          <div class="card">
+            <h3>Places to try</h3>
+            <div class="site-list">${(scale.hotspots || []).map(item =>
+              `<button class="site-button ${state.selected && state.selected.id === item.id ? 'active' : ''}" data-target="${item.id}">
+                <strong>${item.name}</strong>
+                <small>${item.summary || ''}</small>
+              </button>`).join('')}
+            </div>
+          </div>`;
+
+        const siteButtons = ''; // legacy variable, no longer used directly
+
+        return `
+          <div class="side-column">
+            <div class="card">
+              <h3>How to read this chapter</h3>
+              <p>${chapterInfo.body}</p>
+            </div>
+            <div class="card">
+              <h3>Legend</h3>
+              <div class="legend">${legendItems}</div>
+            </div>
+            ${selectedCard}
+            ${zoneCard}
+          </div>`;
+      }
+
+      function lowerPanels(scale, chapter) {
+        if (chapter === 'landscape') {
+          return `
+            <div class="card"><h3>Elevation distribution</h3>${createHistogramSvg(scale.histograms.elevation)}</div>
+            <div class="card"><h3>Steepness distribution</h3>${createHistogramSvg(scale.histograms.slope)}</div>`;
+        }
+        if (chapter === 'light') {
+          return `
+            <div class="card"><h3>Sunlight distribution</h3>${createHistogramSvg(scale.histograms.illumination)}</div>
+            <div class="card"><h3>At-a-glance breakdown</h3>${createCompositionSvg({ labels: ['Very dark shadow', 'Brighter ground', 'Everything else'], values: [scale.stats.psrPct, scale.stats.brightPct, Math.max(0, 100 - scale.stats.psrPct - scale.stats.brightPct)] })}</div>`;
+        }
+        if (chapter === 'access') {
+          return `
+            <div class="card"><h3>Near the shadow, not inside it</h3>${createCompositionSvg(scale.composition)}</div>
+            <div class="card"><h3>Why this matters</h3>
+              <div class="tag-list">
+                <div class="tag">Dark shadow is scientifically valuable but operationally harsh.</div>
+                <div class="tag">Brighter nearby ground is easier for power, visibility, and movement.</div>
+                <div class="tag">Mission design is about balancing access and safety.</div>
+              </div>
+            </div>`;
+        }
+        if (chapter === 'ready') {
+          return `
+            <div class="card full-width">
+              <h3>Why each candidate scores well</h3>
+              <p style="font-size:11px;color:rgba(255,255,255,0.55);margin:0 0 6px">
+                Each bar shows one score component. Small number above group = composite score.
+              </p>
+              ${createSuitabilityBreakdownSvg(scale.candidates, scale.badZones)}
+            </div>`;
+        }
+        return `
+          <div class="card"><h3>Browse this region</h3>
+            <div class="tag-list">
+              <div class="tag">Switch layers to compare the same place in different ways.</div>
+              <div class="tag">Use the hotspot buttons for quick tours.</div>
+              <div class="tag">Click any location to update the inspection panel.</div>
+            </div>
+          </div>
+          <div class="card"><h3>Map composition</h3>${createCompositionSvg(scale.composition)}</div>`;
+      }
+
+      function buildStage(scale) {
+        const chapter = state.chapter;
+        const chapterInfo = chapterData();
+        const layer = mapLayerForChapter();
+
+        let src;
+        let layerLabel;
+        if (chapter === 'landscape' && scale.terrainViews) {
+          const tv = scale.terrainViews[state.terrainView] || scale.terrainViews['normal'];
+          src = tv.src;
+          layerLabel = tv.label;
+        } else {
+          src = scale.maps[layer];
+          layerLabel = DATA.layerLabels[layer];
+        }
+
+        const markers = [];
+        if (chapter === 'ready') {
+          scale.candidates.forEach(item => markers.push({ ...item, kind: 'candidate' }));
+          (scale.badZones || []).forEach(item => markers.push({ ...item, kind: 'bad-zone' }));
+        } else if (chapter === 'explore') {
+          scale.hotspots.forEach(item => markers.push({ ...item, kind: 'hotspot' }));
+        }
+        if (state.selected) markers.push({ ...state.selected, id: 'selected-marker', kind: 'selected' });
+
+        const markerHtml = markers.map(m => {
+          // normX = col/(width-1), normY = row/(height-1): pixel fractions of the
+          // data grid. PyGMT uses a Cartesian projection so these map linearly to
+          // the rendered PNG — reliable regardless of CRS or geographic units.
+          const left = ((m.normX != null ? m.normX : m.col / Math.max(1, scale.width  - 1)) * 100).toFixed(2);
+          const top  = ((m.normY != null ? m.normY : m.row / Math.max(1, scale.height - 1)) * 100).toFixed(2);
+          const classes = ['marker'];
+          if (m.kind === 'candidate') classes.push('candidate');
+          if (m.kind === 'bad-zone') classes.push('bad-zone');
+          if (m.kind === 'selected') classes.push('selected');
+          const glyph = m.kind === 'candidate' ? '★' : m.kind === 'bad-zone' ? '✗' : '';
+          return `<div class="${classes.join(' ')}" style="left:${left}%; top:${top}%" title="${m.name || 'Selected'}">${glyph}</div>`;
+        }).join('');
+
+        return `
+          <div class="map-card">
+            <div class="map-toolbar">
+              <div>
+                <h3>${chapterInfo.title}</h3>
+                <div class="hint-row"><span>${chapterInfo.subtitle}</span></div>
+              </div>
+              <div class="hint-row">
+                <span>${scale.label}</span>
+                <span>${layerLabel}</span>
+              </div>
+            </div>
+            <div class="map-stage-wrap" id="mapWrap">
+              <div class="map-stage" id="mapStage" style="transform: translate(${state.tx}px, ${state.ty}px) scale(${state.zoom});">
+                <img src="${src}" alt="${chapterInfo.title} map" draggable="false" />
+                <div class="overlay">${markerHtml}</div>
+              </div>
+            </div>
+            <div class="hint-row">
+              <span>Scroll to zoom</span>
+              <span>Drag to pan</span>
+              <span>Click to inspect</span>
+            </div>
+          </div>`;
+      }
+
+      function attachSidebarEvents() {
+        const scale = currentScale();
+        // Combine all clickable sites: candidates + bad zones + hotspots
+        const allSources = [
+          ...(scale.candidates || []),
+          ...(scale.badZones || []),
+          ...(scale.hotspots || []),
+        ];
+        document.querySelectorAll('.site-button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const found = allSources.find(item => item.id === btn.dataset.target);
+            if (found) {
+              state.selected = found;
+              // Keep the dropdown on the right panel for the selected item
+              if (found.isBadZone) state.zoneView = 'bad';
+              else if (found.isPrimaryRecommendation !== undefined) state.zoneView = 'good';
+              render();
+            }
+          });
+        });
+        // Zone dropdown toggle — write choice into state so render restores it
+        const sel = document.getElementById('zone-selector');
+        if (sel) {
+          sel.addEventListener('change', () => {
+            state.zoneView = sel.value;
+            render();
+          });
+        }
+      }
+
+      function clampPan(wrap, stage) {
+        const img = stage.querySelector('img');
+        const naturalW = wrap.offsetWidth;
+        const naturalH = img && img.naturalHeight && img.naturalWidth
+          ? naturalW * img.naturalHeight / img.naturalWidth
+          : naturalW;  // square fallback until image loads
+        const sw = naturalW * state.zoom;
+        const sh = naturalH * state.zoom;
+        state.tx = Math.max(Math.min(0, naturalW - sw), Math.min(0, state.tx));
+        state.ty = Math.max(Math.min(0, naturalH - sh), Math.min(0, state.ty));
+        stage.style.transform = `translate(${state.tx}px, ${state.ty}px) scale(${state.zoom})`;
+      }
+
+      function bindMapInteractions() {
+        const wrap = document.getElementById('mapWrap');
+        const stage = document.getElementById('mapStage');
+        if (!wrap || !stage) return;
+
+        let dragging = false;
+        let moved = false;
+        let startX = 0, startY = 0, baseTx = state.tx, baseTy = state.ty;
+
+        // Wheel zoom: keep the point under the cursor fixed
+        wrap.addEventListener('wheel', (ev) => {
+          ev.preventDefault();
+          const wRect = wrap.getBoundingClientRect();
+          const img = stage.querySelector('img');
+          const naturalW = wrap.offsetWidth;
+          const naturalH = img && img.naturalHeight
+            ? naturalW * img.naturalHeight / Math.max(1, img.naturalWidth)
+            : wrap.offsetHeight;
+          // Cursor position relative to wrap top-left
+          const px = ev.clientX - wRect.left;
+          const py = ev.clientY - wRect.top;
+          // Stage coordinate under cursor (unscaled)
+          const stageX = (px - state.tx) / state.zoom;
+          const stageY = (py - state.ty) / state.zoom;
+          const factor = ev.deltaY < 0 ? 1.14 : 1 / 1.14;
+          state.zoom = Math.max(1, Math.min(6, state.zoom * factor));
+          // Keep same stage coordinate under cursor
+          state.tx = px - stageX * state.zoom;
+          state.ty = py - stageY * state.zoom;
+          clampPan(wrap, stage);
+        }, { passive: false });
+
+        wrap.addEventListener('pointerdown', (ev) => {
+          dragging = true; moved = false;
+          startX = ev.clientX; startY = ev.clientY;
+          baseTx = state.tx; baseTy = state.ty;
+          stage.classList.add('dragging');
+          wrap.setPointerCapture(ev.pointerId);
+        });
+
+        wrap.addEventListener('pointermove', (ev) => {
+          if (!dragging) return;
+          const dx = ev.clientX - startX;
+          const dy = ev.clientY - startY;
+          if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
+          state.tx = baseTx + dx;
+          state.ty = baseTy + dy;
+          clampPan(wrap, stage);
+        });
+
+        function endDrag(ev) {
+          if (!dragging) return;
+          dragging = false;
+          stage.classList.remove('dragging');
+          try { wrap.releasePointerCapture(ev.pointerId); } catch (_) {}
+        }
+
+        wrap.addEventListener('pointerup', (ev) => {
+          const wRect = wrap.getBoundingClientRect();
+          endDrag(ev);
+          if (moved) return;
+          // Map click to normalised [0,1] position within the stage
+          const px = ev.clientX - wRect.left;
+          const py = ev.clientY - wRect.top;
+          const img = stage.querySelector('img');
+          const naturalW = wrap.offsetWidth;
+          const naturalH = img && img.naturalHeight
+            ? naturalW * img.naturalHeight / Math.max(1, img.naturalWidth)
+            : wrap.offsetHeight;
+          const nx = Math.max(0, Math.min(1, (px - state.tx) / (naturalW * state.zoom)));
+          const ny = Math.max(0, Math.min(1, (py - state.ty) / (naturalH * state.zoom)));
+          const scale = currentScale();
+          const elevation = lookupInspectValue(scale, 'elevation', nx, ny);
+          const sunlight = lookupInspectValue(scale, 'illumination', nx, ny);
+          const slope = lookupInspectValue(scale, 'slope', nx, ny) / 10.0;
+          const suitability = lookupInspectValue(scale, 'suitability', nx, ny) / 100.0;
+          const row = Math.round(ny * (scale.height - 1));
+          const col = Math.round(nx * (scale.width - 1));
+          const nearby = nearestHotspot(scale, nx, ny);
+          state.selected = {
+            id: `picked-${row}-${col}`, name: 'Picked location',
+            row, col,
+            normX: nx, normY: ny,
+            elevationM: elevation, illuminationPct: sunlight,
+            slopeDeg: slope, suitability,
+            summary: nearby
+              ? `Closest named place: ${nearby.name}. ${nearby.summary}`
+              : 'A location chosen directly from the map.',
+          };
+          render();
+        });
+
+        wrap.addEventListener('pointercancel', endDrag);
+        wrap.addEventListener('pointerleave', (ev) => { if (dragging) endDrag(ev); });
+      }
+
+      function render() {
+        const scale = currentScale();
+        if (!state.selected) state.selected = defaultSelected(scale);
+        renderNav();
+        renderSelectors();
+
+        const chapterInfo = chapterData();
+        const kpis = kpisForScale(scale).map(kpi => `
+          <div class="kpi">
+            <div class="label">${kpi.label}</div>
+            <div class="value">${kpi.value}</div>
+          </div>`).join('');
+
+        app.innerHTML = `
+          <div class="chapter-shell">
+            <div class="hero">
+              <div class="hero-copy">
+                <h2>${chapterInfo.title}</h2>
+                <p>${chapterInfo.body}</p>
+              </div>
+              <div class="kpi-grid">${kpis}</div>
+            </div>
+            <div class="main-grid">
+              ${buildStage(scale)}
+              ${buildSidebar(scale, chapterInfo, state.chapter)}
+            </div>
+            <div class="lower-grid">${lowerPanels(scale, state.chapter)}</div>
+          </div>`;
+
+        footerNote.textContent = 'Use the chapters to compare the same place through landscape, light, access, landing balance, and free exploration.';
+        attachSidebarEvents();
+        bindMapInteractions();
+      }
+
+      scaleSelect.addEventListener('change', (ev) => {
+        state.scaleKey = ev.target.value;
+        state.selected = null;
+        state.zoom = 1;
+        state.tx = 0;
+        state.ty = 0;
+        render();
+      });
+
+      layerSelect.addEventListener('change', (ev) => {
+        state.layer = ev.target.value;
+        render();
+      });
+
+      terrainViewSelect.addEventListener('change', (ev) => {
+        state.terrainView = ev.target.value;
+        render();
+      });
+
+      resetViewBtn.addEventListener('click', () => {
+        state.zoom = 1;
+        state.tx = 0;
+        state.ty = 0;
+        render();
+      });
+
+      function updateHeaderState() {
+        const collapsed = window.scrollY > 56;
+        topbar.classList.toggle('collapsed', collapsed);
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 280);
+      }
+
+      window.addEventListener('scroll', updateHeaderState, { passive: true });
+      window.addEventListener('resize', updateHeaderState);
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      render();
+      updateHeaderState();
+    })();
+  </script>
+</body>
+</html>

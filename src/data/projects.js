@@ -1,3 +1,5 @@
+const publicUrl = process.env.PUBLIC_URL || '';
+
 const projects = [
   // Arden
   {
@@ -101,6 +103,8 @@ const projects = [
     backend: "None",
     description: "Implements a TD3 (Twin Delayed Deep Deterministic Policy Gradient) agent for the Bipedal Walker environment using the rldurham gym. Extends the original work by Jinghao and adapts it for both the standard ('softcore') and 'hardcore' versions of the environment.",
     links: [
+      { url: `${publicUrl}/RL/nkfn77-agent-video,episode=2390,score=328.3514828829743.mp4`, label: "Softcore Video" },
+      { url: `${publicUrl}/RL/nkfn77-agent-hardcore-video,episode=6860,score=325.290321232454.mp4`, label: "Hardcore Video" },
       { url: "https://github.com/billy1479/ReinforcementLearning", label: "GitHub Repo" }
     ],
     images: [require('../assets/Projects/reinforcement-learning/python.png')]
@@ -121,6 +125,7 @@ const projects = [
     backend: "None",
     description: "Advanced Computer Graphics coursework project simulating a stylised Durham Lumiere light festival. The scene combines procedural cathedral architecture, terrain, foliage, water, animated crowds and drones into a large interactive environment. It implements core engine-style systems including parametric geometry generation, spatial partitioning, LOD, hardware instancing, steering behaviours, raycast-based avoidance, animation, anti-aliasing and post-processing to maintain real-time performance with 1,000+ active entities.",
     links: [
+      { url: `${publicUrl}/ACGI/nkfn77.html`, label: "Live Demo" },
       { url: "https://github.com/billy1479/AdvancedComputerGraphics/tree/main/Coursework_PartA", label: "GitHub Repo" }
     ],
     images: [require('../assets/Projects/william-stapleton/nodejs.png')]
@@ -131,6 +136,7 @@ const projects = [
     backend: "None",
     description: "Advanced Computer Graphics and Visualisation coursework project creating two interactive lunar south pole visualisations for NASA’s Artemis III mission. The first app is an exploratory mission-planning tool that visualises real LROC/LOLA lunar elevation, illumination and permanently shadowed-region data to help assess safe and scientifically valuable landing sites. It supports multi-scale map exploration, click-based data sampling, suitability scoring, 3D displacement rendering, contour overlays, PSR overlays, illumination analysis and interactive parameter control. The second app is a public-facing communication visualisation designed to explain why Artemis III targets the lunar south pole. It combines scientific visualisation, infographics and narrative UI design to show how terrain, sunlight, shadow and possible water-ice regions affect mission planning. Together, the apps demonstrate a full visualisation pipeline: data loading, filtering, spatial mapping, colour design, terrain rendering, interaction, accessibility-focused presentation and performance-conscious map generation.",
     links: [
+      { url: `${publicUrl}/ACGII/problem2_story.html`, label: "Live Demo" },
       { url: "https://github.com/billy1479/AdvancedComputerGraphicsPart2", label: "GitHub Repo" }
     ],
     images: [require('../assets/Projects/william-stapleton/nodejs.png')]

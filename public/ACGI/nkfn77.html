@@ -1,0 +1,800 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durham Cathedral Procedural Scene</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; font-family: 'Segoe UI', Arial, sans-serif; }
+        canvas { display: block; }
+        
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(30, 30, 40, 0.92);
+            padding: 10px;
+            border-radius: 8px;
+            color: #fff;
+            width: 200px;
+            max-height: 95vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        #controls h2 {
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #8eb8ff;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 4px;
+        }
+        
+        .control-group {
+            margin-bottom: 6px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 2px;
+            font-size: 10px;
+            color: #aaa;
+        }
+        
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: #444;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .control-group select {
+            width: 100%;
+            padding: 4px 6px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: #202534;
+            color: #fff;
+            font-size: 11px;
+        }
+
+        .control-group button {
+            width: 100%;
+            padding: 5px 8px;
+            border: 1px solid #5b7bc6;
+            border-radius: 4px;
+            background: #2f416d;
+            color: #fff;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .control-group button:hover {
+            background: #3b5290;
+        }
+
+        .control-dropdown {
+            margin: 6px 0 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 6px;
+            background: rgba(17, 23, 38, 0.45);
+            overflow: hidden;
+        }
+
+        .control-dropdown summary {
+            list-style: none;
+            cursor: pointer;
+            font-size: 10px;
+            color: #c5d5ff;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            padding: 7px 8px;
+            border-bottom: 1px solid transparent;
+            user-select: none;
+        }
+
+        .control-dropdown summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .control-dropdown summary::after {
+            content: " +";
+            float: right;
+            color: #8eb8ff;
+        }
+
+        .control-dropdown[open] summary {
+            border-bottom-color: rgba(255,255,255,0.12);
+        }
+
+        .control-dropdown[open] summary::after {
+            content: " -";
+        }
+
+        .control-dropdown-content {
+            padding: 6px 8px 4px;
+        }
+        
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #6a9eff;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .value-display {
+            text-align: right;
+            font-size: 10px;
+            color: #6a9eff;
+            font-weight: bold;
+            margin-top: 1px;
+        }
+        
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 6px;
+        }
+        
+        .toggle-group label {
+            font-size: 10px;
+            color: #fff;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 38px;
+            height: 18px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 18px;
+            transition: 0.3s;
+            border: 1px solid #444;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "🌙";
+            height: 14px;
+            width: 14px;
+            left: 2px;
+            bottom: 2px;
+            background: #2d2d44;
+            border-radius: 50%;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, #87ceeb 0%, #98d8f0 100%);
+            border-color: #5cb3d6;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background: #fff;
+        }
+        
+        #info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(30, 30, 40, 0.85);
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: #888;
+            font-size: 12px;
+            max-width: 350px;
+        }
+        
+        #info span {
+            color: #6a9eff;
+        }
+
+        #agentStats {
+            font-size: 11px;
+        }
+        
+        .section-title {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #666;
+            margin-top: 6px;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        
+        .debug-dropdown {
+            margin-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 6px;
+        }
+
+        .debug-dropdown summary {
+            cursor: pointer;
+            font-size: 10px;
+            color: #8eb8ff;
+            font-weight: 600;
+            list-style: none;
+            user-select: none;
+        }
+
+        .debug-dropdown summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .debug-dropdown summary::before {
+            content: "▶ ";
+            color: #6a9eff;
+        }
+
+        .debug-dropdown[open] summary::before {
+            content: "▼ ";
+        }
+
+        .debug-dropdown-content {
+            margin-top: 6px;
+            margin-left: 6px;
+            border-left: 2px solid rgba(106,158,255,0.5);
+            padding-left: 8px;
+        }
+
+        #fpsCounter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(30, 30, 40, 0.92);
+            padding: 12px 18px;
+            border-radius: 8px;
+            color: #6a9eff;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            min-width: 80px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        #fpsCounter.good {
+            color: #2ecc71;  /* Green for good FPS (60+) */
+        }
+
+        #fpsCounter.warning {
+            color: #f39c12;  /* Orange for warning (30-60) */
+        }
+
+        #fpsCounter.poor {
+            color: #e74c3c;  /* Red for poor FPS (<30) */
+        }
+    </style>
+</head>
+<body>
+    <div id="fpsCounter">0 FPS</div>
+    <div id="controls">
+        <h2>Durham Cathedral Scene</h2>
+
+        <div class="section-title">Day / Night Mode</div>
+
+        <div class="toggle-group">
+            <label>Day / Night Mode</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="dayNightToggle" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div class="section-title">Cathedral Parameters</div>
+        
+        <div class="control-group">
+            <label>Tower Height</label>
+            <input type="range" id="towerHeight" min="18" max="35" value="25">
+            <div class="value-display" id="towerValue">25</div>
+        </div>
+        
+        <div class="section-title">Environment</div>
+        
+        <div class="control-group">
+            <label>Number of Graves</label>
+            <input type="range" id="graveCount" min="5" max="50" value="20">
+            <div class="value-display" id="graveValue">20</div>
+        </div>
+        
+        <div class="control-group">
+            <label>Number of Tents</label>
+            <input type="range" id="tentCount" min="1" max="15" value="5">
+            <div class="value-display" id="tentValue">5</div>
+        </div>
+
+        <div class="section-title">Procedural Buildings</div>
+
+        <div class="control-group">
+            <label>Building Height (Row) </label>
+            <input type="range" id="buildingHeight" min="5" max="30" value="12">
+            <div class="value-display" id="buildingHeightValue">12</div>
+        </div>
+
+        <div class="section-title">Green Buildings</div>
+
+        <div class="control-group">
+            <label>Count</label>
+            <input type="range" id="greenBuildingCount" min="0" max="30" value="8">
+            <div class="value-display" id="greenBuildingCountValue">8</div>
+        </div>
+
+        <div class="control-group">
+            <label>Layout Seed</label>
+            <input type="range" id="greenBuildingSeed" min="1" max="9999" value="1" step="1">
+            <div class="value-display" id="greenBuildingSeedValue">1</div>
+        </div>
+
+        <details class="control-dropdown">
+            <summary>Advanced Parameters</summary>
+            <div class="control-dropdown-content">
+                <div class="control-group">
+                    <label>Min Width</label>
+                    <input type="range" id="greenBldMinW" min="4" max="24" value="6" step="0.1">
+                    <div class="value-display" id="greenBldMinWValue">6.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Max Width</label>
+                    <input type="range" id="greenBldMaxW" min="4" max="24" value="16" step="0.1">
+                    <div class="value-display" id="greenBldMaxWValue">16.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Min Depth</label>
+                    <input type="range" id="greenBldMinD" min="4" max="18" value="5" step="0.1">
+                    <div class="value-display" id="greenBldMinDValue">5.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Max Depth</label>
+                    <input type="range" id="greenBldMaxD" min="4" max="18" value="13" step="0.1">
+                    <div class="value-display" id="greenBldMaxDValue">13.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Min Height</label>
+                    <input type="range" id="greenBldMinH" min="4" max="30" value="6" step="0.1">
+                    <div class="value-display" id="greenBldMinHValue">6.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Max Height</label>
+                    <input type="range" id="greenBldMaxH" min="4" max="30" value="20" step="0.1">
+                    <div class="value-display" id="greenBldMaxHValue">20.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Min Spacing</label>
+                    <input type="range" id="greenBldMinSpacing" min="2" max="20" value="8" step="0.1">
+                    <div class="value-display" id="greenBldMinSpacingValue">8.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Max Spacing</label>
+                    <input type="range" id="greenBldMaxSpacing" min="2" max="30" value="18" step="0.1">
+                    <div class="value-display" id="greenBldMaxSpacingValue">18.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Roof Pitch Min</label>
+                    <input type="range" id="greenBldRoofPitchMin" min="0.1" max="0.8" value="0.25" step="0.01">
+                    <div class="value-display" id="greenBldRoofPitchMinValue">0.25</div>
+                </div>
+                <div class="control-group">
+                    <label>Roof Pitch Max</label>
+                    <input type="range" id="greenBldRoofPitchMax" min="0.1" max="0.8" value="0.45" step="0.01">
+                    <div class="value-display" id="greenBldRoofPitchMaxValue">0.45</div>
+                </div>
+                <div class="control-group">
+                    <label>Roof Curve</label>
+                    <input type="range" id="greenBldRoofCurve" min="0" max="0.9" value="0.35" step="0.01">
+                    <div class="value-display" id="greenBldRoofCurveValue">0.35</div>
+                </div>
+                <div class="control-group">
+                    <label>Chimney Probability</label>
+                    <input type="range" id="greenBldChimneyProb" min="0" max="1" value="0.5" step="0.01">
+                    <div class="value-display" id="greenBldChimneyProbValue">0.50</div>
+                </div>
+                <div class="control-group">
+                    <label>Window Spacing X</label>
+                    <input type="range" id="greenBldWindowSpacingX" min="1.5" max="6" value="3" step="0.1">
+                    <div class="value-display" id="greenBldWindowSpacingXValue">3.0</div>
+                </div>
+                <div class="control-group">
+                    <label>Window Spacing Y</label>
+                    <input type="range" id="greenBldWindowSpacingY" min="1.5" max="6" value="3.2" step="0.1">
+                    <div class="value-display" id="greenBldWindowSpacingYValue">3.2</div>
+                </div>
+                <div class="toggle-group">
+                    <label>Curved Roofs</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="greenBldCurvedRoofs" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="control-group">
+                    <button id="greenBuildingsRegenerate" type="button">Regenerate</button>
+                </div>
+            </div>
+        </details>
+
+        <div class="section-title">Agent Simulation</div>
+
+        <div class="control-group">
+            <label>Pedestrians (Walking)</label>
+            <input type="range" id="pedestrianCount" min="0" max="1000" value="700">
+            <div class="value-display" id="pedestrianValue">700</div>
+        </div>
+        <div class="control-group">
+            <label>Drones (Flying)</label>
+            <input type="range" id="droneCount" min="0" max="1000" value="700">
+            <div class="value-display" id="droneValue">700</div>
+        </div>
+        <div class="control-group">
+            <label>Pedestrian Spacing</label>
+            <input type="range" id="pedestrianSpacing" min="0" max="3" value="1" step="0.1">
+            <div class="value-display" id="pedestrianSpacingValue">1.0x</div>
+        </div>
+        <div class="control-group">
+            <label>Drone Spacing</label>
+            <input type="range" id="droneSpacing" min="0" max="3" value="1" step="0.1">
+            <div class="value-display" id="droneSpacingValue">1.0x</div>
+        </div>
+
+
+        <div class="section-title">Agent Lighting</div>
+
+        <div class="control-group">
+            <label>Pedestrian Light Intensity</label>
+            <input type="range" id="pedestrianLightIntensity" min="0" max="5" value="0" step="0.1">
+            <div class="value-display" id="pedestrianLightValue">0.0</div>
+        </div>
+        <div class="control-group">
+            <label>Drone Light Intensity</label>
+            <input type="range" id="droneLightIntensity" min="0" max="6" value="0" step="0.1">
+            <div class="value-display" id="droneLightValue">0.0</div>
+        </div>
+
+        <div class="toggle-group">
+            <label>Agent Flocking</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="behaviorToggle" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="section-title">Foliage</div>
+
+        <div class="control-group">
+            <label>Number of Trees (Instanced)</label>
+            <input type="range" id="treeCount" min="0" max="600" value="280">
+            <div class="value-display" id="treeValue">280</div>
+        </div>
+        <div class="control-group">
+            <label>Building Zone Tree Coverage %</label>
+            <input type="range" id="treeCoverage" min="0" max="100" value="50">
+            <div class="value-display" id="treeCoverageValue">50%</div>
+        </div>
+        <div class="control-group">
+            <label>Number of Bushes (Instanced)</label>
+            <input type="range" id="bushCount" min="0" max="1500" value="900">
+            <div class="value-display" id="bushValue">900</div>
+        </div>
+        
+        <div class="control-group" id="lightIntensityGroup" style="margin-top: 15px; display: none;">
+            <label>Ground Light Intensity</label>
+            <input type="range" id="lightIntensity" min="0" max="100" value="50">
+            <div class="value-display" id="lightValue">50%</div>
+        </div>
+        
+        <div class="section-title">River</div>
+
+        <div class="control-group">
+            <label>Water Flow Rate</label>
+            <input type="range" id="riverFlowRate" min="0" max="100" value="50">
+            <div class="value-display" id="flowValue">50%</div>
+        </div>
+
+        <div class="section-title">Raycasting Avoidance</div>
+
+        <div class="control-group">
+            <label>Pedestrian Lookahead</label>
+            <input type="range" id="raycastPedLookahead" min="2" max="20" value="8" step="0.5">
+            <div class="value-display" id="raycastPedLookaheadValue">8.0m</div>
+        </div>
+
+        <div class="control-group">
+            <label>Drone Lookahead</label>
+            <input type="range" id="raycastDroneLookahead" min="4" max="30" value="12" step="0.5">
+            <div class="value-display" id="raycastDroneLookaheadValue">12.0m</div>
+        </div>
+
+        <div class="control-group">
+            <label>Avoidance Force Scale</label>
+            <input type="range" id="raycastAvoidanceForce" min="0.5" max="3" value="1.2" step="0.1">
+            <div class="value-display" id="raycastAvoidanceForceValue">1.2x</div>
+        </div>
+
+        <div class="control-group">
+            <label>Raycast Interval (frames)</label>
+            <input type="range" id="raycastInterval" min="1" max="6" value="3" step="1">
+            <div class="value-display" id="raycastIntervalValue">3</div>
+        </div>
+
+        <div class="section-title">Post-processing</div>
+
+        <div class="toggle-group">
+            <label>Bloom</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="bloomToggle" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="control-group">
+            <label>Anti-Aliasing Mode</label>
+            <select id="aaMode">
+                <option value="None">None</option>
+                <option value="MSAA">MSAA</option>
+                <option value="FXAA" selected>FXAA</option>
+            </select>
+        </div>
+
+        <div class="section-title">Bokeh</div>
+
+        <div class="toggle-group">
+            <label>Enable Bokeh</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="bokehToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="control-group">
+            <label>Bokeh Focus</label>
+            <input type="range" id="bokehFocus" min="1" max="500" value="110" step="1">
+            <div class="value-display" id="bokehFocusValue">110</div>
+        </div>
+
+        <div class="control-group">
+            <label>Bokeh Aperture</label>
+            <input type="range" id="bokehAperture" min="0" max="0.03" value="0.01" step="0.0001">
+            <div class="value-display" id="bokehApertureValue">0.01000</div>
+        </div>
+
+        <div class="control-group">
+            <label>Bokeh Max Blur</label>
+            <input type="range" id="bokehMaxBlur" min="0" max="0.02" value="0.01" step="0.0001">
+            <div class="value-display" id="bokehMaxBlurValue">0.0100</div>
+        </div>
+
+        <div class="section-title">Debug Essentials</div>
+
+        <div class="toggle-group">
+            <label>Spatial Grid Debug (G)</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="gridDebugToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group">
+            <label>Show Occupied Cells</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="gridOccupiedToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-group">
+            <label>Debug LOD Levels</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="debugLodToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <details class="debug-dropdown">
+            <summary>More Debug Tools</summary>
+            <div class="debug-dropdown-content">
+                <div class="control-group">
+                    <label>Queue Ahead Dot Threshold</label>
+                    <input type="range" id="queueAheadDotThreshold" min="0.1" max="0.95" value="0.35" step="0.01">
+                    <div class="value-display" id="queueAheadDotThresholdValue">0.35</div>
+                </div>
+
+                <div class="control-group">
+                    <label>Ped Queue Brake Radius</label>
+                    <input type="range" id="pedQueueBrakeRadius" min="1.0" max="8.0" value="3.4" step="0.1">
+                    <div class="value-display" id="pedQueueBrakeRadiusValue">3.4m</div>
+                </div>
+
+                <div class="control-group">
+                    <label>Drone Queue Brake Radius</label>
+                    <input type="range" id="droneQueueBrakeRadius" min="1.0" max="12.0" value="4.6" step="0.1">
+                    <div class="value-display" id="droneQueueBrakeRadiusValue">4.6m</div>
+                </div>
+
+                <div class="toggle-group">
+                    <label>Enable Debug</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="masterDebugToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div id="debugOptions" style="display: none; margin-left: 8px; border-left: 2px solid #6a9eff; padding-left: 6px;">
+                    <div class="toggle-group" style="margin-top: 4px;">
+                        <label>Agent Paths</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="debugPaths">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <label>Velocity Vectors</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="debugVelocity">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <label>Collision Radius</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="debugCollision">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <label>FK Skeletons</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="debugSkeletons">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="toggle-group">
+                    <label>Mouse Guide</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mouseControlDrones">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <label>Navigation Debug</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="debugNav">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <label>Parametric Cages</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="debugParametricCages">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <label>B-Spline Cages</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="debugBSplineCages">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <label>Garden Catmull-Rom</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="debugGardenCatmull">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <label>Show 8-Neighbour Cells</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="gridNeighboursToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <label>Agent LOD System</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="agentLodToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <label>Near LOD Distance</label>
+                    <input type="range" id="lodNearDist" min="10" max="120" value="45">
+                    <div class="value-display" id="lodNearValue">45m</div>
+                </div>
+
+                <div class="control-group">
+                    <label>Mid LOD Distance</label>
+                    <input type="range" id="lodMidDist" min="50" max="200" value="120">
+                    <div class="value-display" id="lodMidValue">120m</div>
+                </div>
+
+                <div class="control-group">
+                    <label>Bloom Strength</label>
+                    <input type="range" id="bloomStrength" min="0" max="3" value="0.8" step="0.1">
+                    <div class="value-display" id="bloomStrengthValue">0.8</div>
+                </div>
+
+                <div class="control-group">
+                    <label>Bloom Radius</label>
+                    <input type="range" id="bloomRadius" min="0" max="1" value="0.4" step="0.05">
+                    <div class="value-display" id="bloomRadiusValue">0.4</div>
+                </div>
+
+                <div class="control-group">
+                    <label>Bloom Threshold</label>
+                    <input type="range" id="bloomThreshold" min="0" max="1" value="0.6" step="0.05">
+                    <div class="value-display" id="bloomThresholdValue">0.6</div>
+                </div>
+            </div>
+        </details>
+    </div>
+    
+    <div id="info">
+        <div id="agentStats">
+            <span id="pedestrianCounter">0</span> | <span id="droneCounter">0</span> | Total: <span id="totalAgentCounter">0</span>
+        </div>
+        <div id="lodStats" style="margin-top: 5px; font-size: 10px; color: #888;">
+            LOD: Skinned: <span id="lodSkinnedCount">0</span> |
+            Near: <span id="lodNearCount">0</span> | 
+            Mid: <span id="lodMidCount">0</span> | 
+            Far: <span id="lodFarCount">0</span>
+        </div>
+        <div id="aaStatus" style="margin-top: 5px; font-size: 10px; color: #888;">
+            AA: FXAA
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module" src="./scripts/main.js"></script>
+</body>
+</html>
