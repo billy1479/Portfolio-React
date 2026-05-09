@@ -1,6 +1,3 @@
-// NOTE: This file must not use 'fs', 'path', or 'gray-matter' in the browser.
-// Instead, manually maintain the array or generate it at build time.
-
 const projects = [
   // Arden
   {

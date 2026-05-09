@@ -7,11 +7,21 @@ import ProjectsSection from './components/ProjectsSection';
 import DissertationSection from './components/DissertationSection';
 import WorkExperienceSection from './components/WorkExperienceSection';
 import Footer from './components/Footer';
+import DissertationDashboardPage from './components/DissertationDashboardPage';
+
+const getLocationState = () => ({
+  pathname: window.location.pathname,
+  hash: window.location.hash,
+});
+
+const isDissertationRoute = (pathname) => pathname.replace(/\/+$/, '') === '/dissertation';
 
 const App = () => {
+  const [locationState, setLocationState] = useState(getLocationState);
   const [activeSection, setActiveSection] = useState('about');
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
   const [userToggledSidebar, setUserToggledSidebar] = useState(false);
+  const onDissertationPage = isDissertationRoute(locationState.pathname);
 
   // Define navigation sections
   const navSections = useMemo(() => [
@@ -22,9 +32,45 @@ const App = () => {
     { id: 'projects', label: 'Projects' },
     { id: 'dissertation', label: 'Dissertation' }
   ], []);
+
+  useEffect(() => {
+    const handlePopState = () => setLocationState(getLocationState());
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateTo = (pathname, hash = '') => {
+    const nextPath = `${pathname}${hash}`;
+    const currentPath = `${window.location.pathname}${window.location.hash}`;
+
+    if (currentPath !== nextPath) {
+      window.history.pushState({}, '', nextPath);
+      setLocationState(getLocationState());
+    }
+
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+
+  const openPortfolioSection = (sectionId) => {
+    navigateTo('/', `#${sectionId}`);
+
+    window.requestAnimationFrame(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  };
+
+  const openDissertationPage = () => navigateTo('/dissertation/');
   
   // Handle scroll to set active section
   useEffect(() => {
+    if (onDissertationPage) {
+      return undefined;
+    }
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
       
@@ -47,7 +93,7 @@ const App = () => {
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [navSections]);
+  }, [navSections, onDissertationPage]);
   
   // Responsive sidebar open/close logic
   useEffect(() => {
@@ -63,6 +109,23 @@ const App = () => {
     }
     return () => window.removeEventListener('resize', handleResize);
   }, [userToggledSidebar]);
+
+  useEffect(() => {
+    if (onDissertationPage) {
+      return;
+    }
+
+    if (locationState.hash) {
+      const targetId = locationState.hash.replace(/^#/, '');
+      const element = document.getElementById(targetId);
+
+      if (element) {
+        window.requestAnimationFrame(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+    }
+  }, [locationState.hash, onDissertationPage]);
   
   // Toggle sidebar for mobile
   const toggleSidebar = () => {
@@ -72,12 +135,21 @@ const App = () => {
   
   // Scroll to section when nav link is clicked
   const scrollToSection = (sectionId) => {
+    if (onDissertationPage) {
+      openPortfolioSection(sectionId);
+      return;
+    }
+
     setIsSidebarOpen(false); // Close sidebar on mobile
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  if (onDissertationPage) {
+    return <DissertationDashboardPage onBack={() => openPortfolioSection('dissertation')} />;
+  }
   
   return (
     <div className="font-sans text-gray-200 min-h-screen bg-gray-900 flex flex-col md:flex-row">
@@ -106,7 +178,7 @@ const App = () => {
             <WorkExperienceSection />
             <LanguagesSection />
             <ProjectsSection />
-            <DissertationSection />
+            <DissertationSection onOpenDashboard={openDissertationPage} />
             <Footer />
         </div>
       </main>
