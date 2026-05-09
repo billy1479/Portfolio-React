@@ -108,6 +108,14 @@ const DissertationSection = ({ onOpenDashboard }) => (
           >
             Open Dissertation Dashboard
           </button>
+          <a
+            href="https://github.com/billy1479/Dissertation_BlackHoleSubsystemClassification/tree/main"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center rounded-lg border border-orange-500 px-5 py-3 font-semibold text-orange-300 transition hover:bg-orange-500/10 hover:text-orange-200"
+          >
+            Open GitHub Repository
+          </a>
         </div>
       </div>
 
@@ -120,7 +128,7 @@ const DissertationSection = ({ onOpenDashboard }) => (
         <li>Machine learning methods: CatBoost, XGBoost, Residual MLP, Stacking Ensemble (logistic regression meta-learner)</li>
         <li>Feature engineering: 8-feature observable contract including two novel structural ratios, determined via leave-one-feature-out ablation</li>
         <li>Catalogues: Harris (111 GCs), Baumgardt-Hilker (84 GCs), Holger Baumgardt (167 GCs)</li>
-        <li>Code and analysis scripts to be released via GitHub</li>
+        <li>Code and analysis scripts available on GitHub</li>
       </ul>
 
       {/* Context */}

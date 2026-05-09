@@ -43,7 +43,7 @@ const ProjectsSection = () => {
         <div className="mb-4 flex gap-2 items-center">
           <span className="text-gray-300 text-sm">Filter by:</span>
           <button
-            className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors duration-200 ${
+            className={`inline-flex min-h-8 items-center justify-center rounded-full px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
               filterMode === 'backend' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             }`}
             onClick={() => { setFilterMode('backend'); setActiveFilter('All'); }}
@@ -51,7 +51,7 @@ const ProjectsSection = () => {
             Backend
           </button>
           <button
-            className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors duration-200 ${
+            className={`inline-flex min-h-8 items-center justify-center rounded-full px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
               filterMode === 'language' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             }`}
             onClick={() => { setFilterMode('language'); setActiveFilter('All'); }}
@@ -65,7 +65,7 @@ const ProjectsSection = () => {
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 rounded-full text-sm transition-colors duration-200 ${
+              className={`inline-flex min-h-10 items-center justify-center rounded-full px-4 py-2 text-sm leading-none transition-colors duration-200 ${
                 filter === activeFilter 
                   ? 'bg-orange-600 text-white' 
                   : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
@@ -106,7 +106,7 @@ const ProjectsSection = () => {
                   {(project.languages || 'Other').split(',').map((language, idx) => (
                     <span
                       key={idx}
-                      className="inline-block px-3 py-1 text-xs font-semibold text-orange-200 bg-orange-900 rounded-full"
+                      className="inline-flex min-h-8 items-center justify-center rounded-lg bg-orange-900 px-3 py-1 text-xs font-semibold leading-none text-orange-200"
                     >
                       {language.trim()}
                     </span>
@@ -117,17 +117,17 @@ const ProjectsSection = () => {
                   <strong>Backend:</strong> {project.backend}
                 </div>
                 <p className="text-gray-400 mb-4">{project.description}</p>
-                <div className="flex gap-4 mt-4">
+                <div className="mt-4 flex flex-wrap gap-3">
                   {project.links && project.links.map((link, idx) => (
                     <a
                       key={idx}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-orange-500 font-medium flex items-center gap-1 hover:text-orange-400 transition-colors duration-200"
+                      className="inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-orange-500/60 px-4 py-2 text-sm font-medium text-orange-300 transition-colors duration-200 hover:bg-orange-500/10 hover:text-orange-200"
                     >
-                      {link.label}
                       {link.url.includes('github.com') ? <Github size={16} /> : <ExternalLink size={16} />}
+                      <span>{link.label}</span>
                     </a>
                   ))}
                 </div>

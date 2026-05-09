@@ -116,6 +116,26 @@ const projects = [
     images: [require('../assets/Projects/virtual-reality-coursework/python.png')]
   },
   {
+    title: "Advanced Computer Graphics I",
+    languages: "Three.js, Real-Time Graphics",
+    backend: "None",
+    description: "Advanced Computer Graphics coursework project simulating a stylised Durham Lumiere light festival. The scene combines procedural cathedral architecture, terrain, foliage, water, animated crowds and drones into a large interactive environment. It implements core engine-style systems including parametric geometry generation, spatial partitioning, LOD, hardware instancing, steering behaviours, raycast-based avoidance, animation, anti-aliasing and post-processing to maintain real-time performance with 1,000+ active entities.",
+    links: [
+      { url: "https://github.com/billy1479/AdvancedComputerGraphics/tree/main/Coursework_PartA", label: "GitHub Repo" }
+    ],
+    images: [require('../assets/Projects/william-stapleton/nodejs.png')]
+  },
+  {
+    title: "Advanced Computer Graphics Scientific Visualisation",
+    languages: "Python, React",
+    backend: "None",
+    description: "Advanced Computer Graphics and Visualisation coursework project creating two interactive lunar south pole visualisations for NASA’s Artemis III mission. The first app is an exploratory mission-planning tool that visualises real LROC/LOLA lunar elevation, illumination and permanently shadowed-region data to help assess safe and scientifically valuable landing sites. It supports multi-scale map exploration, click-based data sampling, suitability scoring, 3D displacement rendering, contour overlays, PSR overlays, illumination analysis and interactive parameter control. The second app is a public-facing communication visualisation designed to explain why Artemis III targets the lunar south pole. It combines scientific visualisation, infographics and narrative UI design to show how terrain, sunlight, shadow and possible water-ice regions affect mission planning. Together, the apps demonstrate a full visualisation pipeline: data loading, filtering, spatial mapping, colour design, terrain rendering, interaction, accessibility-focused presentation and performance-conscious map generation.",
+    links: [
+      { url: "https://github.com/billy1479/AdvancedComputerGraphicsPart2", label: "GitHub Repo" }
+    ],
+    images: [require('../assets/Projects/william-stapleton/nodejs.png')]
+  },
+  {
     title: "Multimedia Game Development",
     languages: "C#, Unity",
     backend: "Unity",
@@ -155,6 +175,46 @@ const projects = [
     ],
     images: [require('../assets/Projects/deep-learning/python.png')]
   },
+  {
+    title: "Natural Language Processing",
+    languages: "Python",
+    backend: "None",
+    description: "Natural Language Processing coursework project for rumour stance detection on social media discussion threads. The system classifies reply tweets relative to a source rumour into Support, Deny, Query or Comment categories, using both source and reply text as model input. It combines dataset analytics, unigram/bigram analysis, LDA topic modelling, transformer-based tweet classification, LLM prompting, class-imbalance handling, confusion-matrix evaluation and a two-stage Comment-vs-Non-Comment pipeline to improve minority-class stance detection.",
+    links: [
+      { url: "https://github.com/billy1479/NaturalLanguageProcessing", label: "GitHub Repo" }
+    ],
+    images: [require('../assets/Projects/machine-learning-coursework/python.png')]
+  },
+  {
+    title: "Blockchain and Cryptocurrencies",
+    languages: "Python, Solidity, Bitcoin Script",
+    backend: "Python",
+    description: "COMP4137 Blockchain and Cryptocurrencies coursework implementing a four-part blockchain system centred on agro-supply chain management. Q1 builds a full supply chain blockchain in Python featuring ECDSA-based stakeholder identity generation with QR code registration, SHA-256 proof-of-work mining with configurable difficulty, end-to-end transaction traceability across stakeholders, and a comparative energy analysis between PoW and PoS consensus mechanisms aligned with UN SDG 2030 targets. Q2 implements a bidirectional-linked blockchain with chameleon hash functions and a Preference-Based Committee Member Auction (CMA) consensus algorithm based on Mathur et al. (2025), using VRF-based committee election and the Balanced Preference Model to achieve sub-millisecond block times and 100% stakeholder participation versus Bitcoin's energy-intensive mining. Q3 delivers a Solidity smart contract for circular supply chain inventory management on Ethereum, covering product lifecycle tracking, inter-store transfers, shelf-life monitoring and automated recycling workflows, tested on both Ganache and Sepolia testnet. Q4 implements Bitcoin scripting solutions including hash puzzle redemption scripts and a 2-of-3 MultiSig P2SH transaction with security analysis, validated using a Bitcoin script debugger.",
+    links: [
+      { url: "https://github.com/billy1479/BlockchainAndCryptocurrencies", label: "GitHub Repo" }
+    ],
+    images: [require('../assets/Projects/machine-learning-coursework/python.png')]
+  },
+  {
+    title: "Interconnection Networks for Parallel Computing",
+    languages: "Python, Graph Theory, Algorithms",
+    backend: "None",
+    description: "Interconnection Networks for Parallel Computing coursework project covering rigorous mathematical analysis and algorithmic implementation across a range of network topologies. The written component derives graph-theoretic properties - node counts, degree, diameter, bisection width, and throughput bounds - for k-ary n-cubes, hypercubes, cube-connected cycles, Petersen graphs, circulant graphs, bubble-sort networks, and augmented cubes, grounding every result in formal proofs tied to Moore bounds, spanning-tree arguments, and channel-load analysis. The implementation delivers a fault-tolerant routing algorithm for the k-ary n-cube Q^n_k using incremental dimension-order routing with strictly local fault knowledge: at each hop the agent inspects only channels incident to the current node, applies perimeter-routing detours when the preferred dimension is faulty, falls back to reverse-direction traversal, and terminates gracefully under disconnection. Supporting functions provide all-to-all and randomised traffic pattern generators alongside a fault generator parameterised by count or percentage. The algorithm sustains over 22,000 routes per second on all-to-all traffic for n=5, k=5, satisfying the performance benchmarks set by the assignment.",
+    links: [
+      { url: "https://github.com/billy1479/NetworksAndTheirStructure", label: "GitHub Repo" }
+    ],
+    images: [require('../assets/Projects/machine-learning-coursework/python.png')]
+  },
+  {
+    title: "Network Science",
+    languages: "Python, Network Science, Graph Theory, Epidemic Modelling",
+    backend: "None",
+    description: "Network Science coursework project spanning three interconnected investigations into real-world network structure, searchability, and epidemic dynamics. The first question analyses a real citation network against a Preferential Attachment (PA) model, comparing normalised closeness centrality distributions and tracking how individual node centralities evolve as the graph grows - revealing the compounding advantage of early-arriving nodes in networks governed by \"rich get richer\" attachment. It then extends this to a hybrid P-network model parameterised by n, m and p, blending preferential attachment with random neighbour selection to explore how varying p shifts the resulting degree distribution between scale-free and random regimes. The second question implements the Kleinberg small-world model on a circular lattice with rewiring probability p and distance-biased long-range links, and measures greedy search time across varying alpha and network sizes up to n = 4000 - empirically confirming the theoretically optimal alpha and characterising the logarithmic growth of search time with node count. The third question simulates epidemic spread on Variable Degree Watts-Strogatz (VDWS) networks of 200,000 nodes using a five-state model (S, I, V, VI, R), first with random vaccination from t = 50 onward to establish baseline dynamics under varying transmission and vaccine-efficacy parameters, then with three strategic vaccination schemes - high-degree targeting, ring vaccination, and PageRank-based selection - evaluated for their ability to suppress peak infection and accelerate epidemic termination relative to random rollout.",
+    links: [
+      { url: "https://github.com/billy1479/NetworksAndTheirStructure", label: "GitHub Repo" }
+    ],
+    images: [require('../assets/Projects/machine-learning-coursework/python.png')]
+  },
 
   // IBM
   {
@@ -186,26 +246,6 @@ const projects = [
       { url: "https://www.williamstapleton.co.uk", label: "Portfolio Website" }
     ],
     images: [require('../assets/Projects/william-stapleton/nodejs.png')]
-  },
-  {
-    title: "LBL Digital",
-    languages: "Node.JS",
-    backend: "",
-    description: "Node.JS web app for LBL Digital, a M365 solution provider.",
-    links: [
-      { url: "https://lbldigital.com/", label: "LBL Digital Website" }
-    ],
-    images: [require('../assets/Projects/lbl-digital/nodejs.png')]
-  },
-  {
-    title: "Toot Hill School Student Union Website",
-    languages: "PHP",
-    backend: "",
-    description: "My first website which was created for my college. It is a PHP web app for Toot Hill Student Union for guiding students through SU resources and activities.",
-    links: [
-      { url: "https://studentunion.toothillcollege.co.uk/#", label: "Toot Hill SU Website" }
-    ],
-    images: [require('../assets/Projects/toot-hill-school-student-union-website/php.png')]
   }
 ];
 
