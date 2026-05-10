@@ -81,6 +81,7 @@ const projects = [
     courseworkPercentage: 86,
     description: "Simulates a VR headset and multiple headsets interacting on a virtual floor, using real IMU (Inertial Measurement Unit) data for realistic orientation and sensor fusion. The simulation is rendered in Python and produces video outputs demonstrating both pure gyroscope and sensor fusion tracking.",
     links: [
+      { url: `${publicUrl}/VR/Fully_rendered_scene.mp4`, label: "Demo Video" },
       { url: "https://github.com/billy1479/VRCoursework", label: "GitHub Repo" }
     ],
     images: [require('../assets/Projects/virtual-reality-coursework/python.png')]

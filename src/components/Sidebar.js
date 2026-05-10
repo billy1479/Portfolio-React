@@ -23,10 +23,13 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
   };
 
   return (
-    <aside className={`fixed md:sticky top-0 md:top-0 left-0 z-20 w-64 h-screen bg-gray-800 text-white transition-transform duration-300
-      ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+    <aside
+      className={`fixed inset-y-0 md:sticky md:top-0 left-0 z-20 flex w-64 max-w-[85vw] flex-col bg-gray-800 text-white transition-transform duration-300
+      ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:max-w-none`}
+      style={{ height: '100dvh', WebkitOverflowScrolling: 'touch' }}
+    >
       {/* Profile Section */}
-      <div className="p-6 text-center border-b border-gray-700">
+      <div className="shrink-0 border-b border-gray-700 p-6 text-center">
         <div className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-500 to-amber-600 rounded-full overflow-hidden border-4 border-gray-700 shadow-md mb-4">
           <img 
             src={require(`../assets/new_profile_picture.jpeg`)}
@@ -78,7 +81,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
       
       
       {/* Navigation */}
-      <nav className="p-4">
+      <nav className="min-h-0 flex-1 overflow-y-auto p-4 pb-6 overscroll-contain">
         {navSections.map((section) => (
           <button
             key={section.id}
