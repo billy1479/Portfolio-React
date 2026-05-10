@@ -2,25 +2,47 @@ import React, { useState } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import projectsData from '../data/projects';
 
+const codingLanguages = new Set([
+  'Python',
+  'C++',
+  'C#',
+  'PHP',
+  'Node.JS',
+  'JavaScript',
+  'TypeScript',
+  'Solidity',
+  'Bitcoin Script'
+]);
+
 // Extract unique categories for backend and languages
 const backendSet = new Set();
 const languageSet = new Set();
+const moduleSet = new Set();
 projectsData.forEach(project => {
   const backends = (project.backend || 'Other').split(',').map(b => b.trim()).filter(Boolean);
   backends.forEach(b => backendSet.add(b));
   const languages = (project.languages || 'Other').split(',').map(l => l.trim()).filter(Boolean);
-  languages.forEach(l => languageSet.add(l));
+  languages.filter(language => codingLanguages.has(language)).forEach(language => languageSet.add(language));
+  if (project.module) {
+    moduleSet.add(project.module);
+  }
 });
 
 const backendCategories = ['All', ...Array.from(backendSet).sort()];
 const languageCategories = ['All', ...Array.from(languageSet).sort()];
+const moduleCategories = ['All', ...Array.from(moduleSet).sort()];
 
 const ProjectsSection = () => {
   const [activeFilter, setActiveFilter] = useState('All');
-  const [filterMode, setFilterMode] = useState('backend'); // 'backend' or 'language'
+  const [filterMode, setFilterMode] = useState('backend'); // 'backend', 'language', or 'module'
 
   // Choose categories based on filter mode
-  const categories = filterMode === 'backend' ? backendCategories : languageCategories;
+  const categories =
+    filterMode === 'backend'
+      ? backendCategories
+      : filterMode === 'language'
+        ? languageCategories
+        : moduleCategories;
 
   // Filtering logic
   const filteredProjects = activeFilter === 'All'
@@ -29,10 +51,11 @@ const ProjectsSection = () => {
         if (filterMode === 'backend') {
           const backends = (project.backend || 'Other').split(',').map(b => b.trim());
           return backends.includes(activeFilter);
-        } else {
+        } else if (filterMode === 'language') {
           const languages = (project.languages || 'Other').split(',').map(l => l.trim());
           return languages.includes(activeFilter);
         }
+        return project.module === activeFilter;
       });
 
   return (
@@ -43,20 +66,28 @@ const ProjectsSection = () => {
         <div className="mb-4 flex gap-2 items-center">
           <span className="text-gray-300 text-sm">Filter by:</span>
           <button
-            className={`inline-flex min-h-8 items-center justify-center rounded-full px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
-              filterMode === 'backend' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+            className={`inline-flex min-h-8 items-center justify-center rounded-lg px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
+              filterMode === 'backend' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
             }`}
             onClick={() => { setFilterMode('backend'); setActiveFilter('All'); }}
           >
             Backend
           </button>
           <button
-            className={`inline-flex min-h-8 items-center justify-center rounded-full px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
-              filterMode === 'language' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+            className={`inline-flex min-h-8 items-center justify-center rounded-lg px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
+              filterMode === 'language' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
             }`}
             onClick={() => { setFilterMode('language'); setActiveFilter('All'); }}
           >
             Language
+          </button>
+          <button
+            className={`inline-flex min-h-8 items-center justify-center rounded-lg px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
+              filterMode === 'module' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+            }`}
+            onClick={() => { setFilterMode('module'); setActiveFilter('All'); }}
+          >
+            Module
           </button>
         </div>
         {/* Project Filters */}
@@ -65,10 +96,10 @@ const ProjectsSection = () => {
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`inline-flex min-h-10 items-center justify-center rounded-full px-4 py-2 text-sm leading-none transition-colors duration-200 ${
+              className={`inline-flex min-h-10 items-center justify-center rounded-lg px-4 py-2 text-sm leading-none transition-colors duration-200 ${
                 filter === activeFilter 
                   ? 'bg-orange-600 text-white' 
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
               }`}
               aria-label={`Filter projects by ${filterMode} ${filter}`}
             >
@@ -116,6 +147,11 @@ const ProjectsSection = () => {
                 <div className="mb-2 text-gray-400 text-sm">
                   <strong>Backend:</strong> {project.backend}
                 </div>
+                {project.courseworkPercentage != null && (
+                  <div className="mb-2 text-gray-400 text-sm">
+                    <strong>Coursework Mark:</strong> {project.courseworkPercentage}%
+                  </div>
+                )}
                 <p className="text-gray-400 mb-4">{project.description}</p>
                 <div className="mt-4 flex flex-wrap gap-3">
                   {project.links && project.links.map((link, idx) => (
