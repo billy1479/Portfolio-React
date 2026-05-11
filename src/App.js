@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Menu, X } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import AboutSection from './components/AboutSection';
 import QualificationsSection from './components/QualificationSection';
@@ -19,8 +20,7 @@ const isDissertationRoute = (pathname) => pathname.replace(/\/+$/, '') === '/dis
 const App = () => {
   const [locationState, setLocationState] = useState(getLocationState);
   const [activeSection, setActiveSection] = useState('about');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
-  const [userToggledSidebar, setUserToggledSidebar] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const onDissertationPage = isDissertationRoute(locationState.pathname);
 
   // Define navigation sections
@@ -64,7 +64,7 @@ const App = () => {
   };
 
   const openDissertationPage = () => navigateTo('/dissertation/');
-  
+
   // Handle scroll to set active section
   useEffect(() => {
     if (onDissertationPage) {
@@ -73,13 +73,13 @@ const App = () => {
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
-      
-      for (const section of navSections.map(s => s.id)) {
+
+      for (const section of navSections.map((s) => s.id)) {
         const element = document.getElementById(section);
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
-          
+
           if (
             scrollPosition >= offsetTop &&
             scrollPosition < offsetTop + offsetHeight
@@ -90,25 +90,22 @@ const App = () => {
         }
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [navSections, onDissertationPage]);
-  
-  // Responsive sidebar open/close logic
+
+  // Reset mobile menu when moving to desktop.
   useEffect(() => {
     const handleResize = () => {
-      if (!userToggledSidebar) {
-        setIsSidebarOpen(window.innerWidth >= 768);
+      if (window.innerWidth >= 768) {
+        setIsSidebarOpen(false);
       }
     };
+
     window.addEventListener('resize', handleResize);
-    // Set initial state on mount
-    if (!userToggledSidebar) {
-      setIsSidebarOpen(window.innerWidth >= 768);
-    }
     return () => window.removeEventListener('resize', handleResize);
-  }, [userToggledSidebar]);
+  }, []);
 
   useEffect(() => {
     if (onDissertationPage) {
@@ -126,13 +123,12 @@ const App = () => {
       }
     }
   }, [locationState.hash, onDissertationPage]);
-  
+
   // Toggle sidebar for mobile
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
-    setUserToggledSidebar(true);
   };
-  
+
   // Scroll to section when nav link is clicked
   const scrollToSection = (sectionId) => {
     if (onDissertationPage) {
@@ -140,7 +136,10 @@ const App = () => {
       return;
     }
 
-    setIsSidebarOpen(false); // Close sidebar on mobile
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(false); // Close sidebar on mobile
+    }
+
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -150,36 +149,36 @@ const App = () => {
   if (onDissertationPage) {
     return <DissertationDashboardPage onBack={() => openPortfolioSection('dissertation')} />;
   }
-  
+
   return (
     <div className="font-sans text-gray-200 min-h-screen bg-gray-900 flex flex-col md:flex-row">
       {/* Mobile Toggle Button */}
-      <button 
+      <button
         className="md:hidden fixed top-4 left-4 z-30 bg-orange-600 text-white p-2 rounded-md shadow-md"
         onClick={toggleSidebar}
         aria-label="Toggle navigation menu"
       >
-        {isSidebarOpen ? <span>✕</span> : <span>☰</span>}
+        {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
-      
+
       {/* Sidebar Component */}
-      <Sidebar 
+      <Sidebar
         navSections={navSections}
         activeSection={activeSection}
         isSidebarOpen={isSidebarOpen}
         scrollToSection={scrollToSection}
       />
-      
+
       {/* Main Content */}
-      <main className="flex-1 md:ml-0 p-4 pt-16 md:pt-4 flex">
+      <main className={`flex-1 md:ml-0 p-4 ${isSidebarOpen ? 'pt-96' : 'pt-16'} md:pt-4 flex`}>
         <div className="max-w-6xl w-full min-w-0 mx-auto flex flex-col gap-8">
-            <AboutSection />
-            <QualificationsSection />
-            <WorkExperienceSection />
-            <LanguagesSection />
-            <ProjectsSection />
-            <DissertationSection onOpenDashboard={openDissertationPage} />
-            <Footer />
+          <AboutSection />
+          <QualificationsSection />
+          <WorkExperienceSection />
+          <LanguagesSection />
+          <ProjectsSection />
+          <DissertationSection onOpenDashboard={openDissertationPage} />
+          <Footer />
         </div>
       </main>
     </div>

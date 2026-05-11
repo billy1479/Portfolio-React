@@ -23,88 +23,102 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
   };
 
   return (
-    <aside
-      className={`fixed inset-y-0 md:sticky md:top-0 left-0 z-20 flex w-64 max-w-[85vw] flex-col bg-gray-800 text-white transition-transform duration-300
-      ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:max-w-none`}
-      style={{ height: '100dvh', WebkitOverflowScrolling: 'touch' }}
-    >
-      {/* Profile Section */}
-      <div className="shrink-0 border-b border-gray-700 p-6 text-center">
-        <div className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-500 to-amber-600 rounded-full overflow-hidden border-4 border-gray-700 shadow-md mb-4">
-          <img 
-            src={require(`../assets/new_profile_picture.jpeg`)}
-            alt="Developer portrait" 
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <h1 className="text-xl text-gray-200 font-bold mt-2">William Stapleton</h1>
-        <p className="text-gray-400">MEng Computer Science</p>
-        <br></br>
-        <p className="text-gray-400 text-sm">Incoming SE @ Red Bull Technology</p>
-        <br></br>
-        <p className="text-gray-400 text-sm">Power Platform Developer</p>
-        <br></br>
-        <div className="flex justify-center space-x-4 mt-4">
-          <a
-            href="https://github.com/billy1479"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
-            aria-label="GitHub"
-          >
-            <Github size={20} />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/william-stapleton-57674b219/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
-            aria-label="LinkedIn"
-          >
-            <Linkedin size={20} />
-          </a>
+    <>
+      <aside
+        className="hidden md:sticky md:top-0 md:z-20 md:flex md:w-64 md:flex-col md:bg-gray-800 md:text-white"
+        style={{ height: '100dvh', WebkitOverflowScrolling: 'touch' }}
+      >
+        {/* Profile Section */}
+        <div className="shrink-0 border-b border-gray-700 p-6 text-center">
+          <div className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-500 to-amber-600 rounded-full overflow-hidden border-4 border-gray-700 shadow-md mb-4">
+            <img
+              src={require(`../assets/new_profile_picture.jpeg`)}
+              alt="Developer portrait"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <h1 className="text-xl text-gray-200 font-bold mt-2">William Stapleton</h1>
+          <p className="text-gray-400">MEng Computer Science</p>
+          <br></br>
+          <p className="text-gray-400 text-sm">Incoming SE @ Red Bull Technology</p>
+          <br></br>
+          <p className="text-gray-400 text-sm">Power Platform Developer</p>
+          <br></br>
+          <div className="flex justify-center space-x-4 mt-4">
+            <a
+              href="https://github.com/billy1479"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
+              aria-label="GitHub"
+            >
+              <Github size={20} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/william-stapleton-57674b219/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={20} />
+            </a>
+          </div>
+
+          {/* Download CV Button in Topbar */}
+          <div className="mt-4">
+            <a
+              href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/IQDCtv_MACHFTq3yaSpTD9NRAXcvJEELtgT7xwIUZMjhQh8?e=AiKo6T"
+              download
+              className="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 hover:bg-gray-300 rounded-lg px-3 py-2"
+            >
+              <Download size={20} />
+              <span className="text-sm">Download CV</span>
+            </a>
+          </div>
         </div>
 
-        {/* Download CV Button in Topbar */}
-        <div className="mt-4">
-          <a
-            href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/IQDCtv_MACHFTq3yaSpTD9NRAXcvJEELtgT7xwIUZMjhQh8?e=AiKo6T"
-            download
-            className="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 hover:bg-gray-300 rounded-lg px-3 py-2"
-          >
-            <Download size={20} />
-            <span className="text-sm">Download CV</span>
-          </a>
-        </div>
-      </div>
+        {/* Desktop Navigation */}
+        <nav className="min-h-0 flex-1 overflow-y-auto p-4 pb-6 overscroll-contain">
+          {navSections.map((section) => (
+            <button
+              key={section.id}
+              onClick={() => scrollToSection(section.id)}
+              className={`flex items-center gap-3 w-full text-left py-3 px-4 rounded-lg transition duration-200 ${
+                activeSection === section.id
+                  ? 'bg-orange-600 text-white'
+                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
+              }`}
+              aria-label={`Navigate to ${section.label} section`}
+            >
+              {getIcon(section.id)}
+              {section.label}
+            </button>
+          ))}
+        </nav>
+      </aside>
 
-      
-      
-      {/* Navigation */}
-      <nav className="min-h-0 flex-1 overflow-y-auto p-4 pb-6 overscroll-contain">
-        {navSections.map((section) => (
-          <button
-            key={section.id}
-            onClick={() => scrollToSection(section.id)}
-            className={`flex items-center gap-3 w-full text-left py-3 px-4 rounded-lg transition duration-200 ${
-              activeSection === section.id 
-                ? 'bg-orange-600 text-white' 
-                : 'text-gray-400 hover:text-white hover:bg-gray-700'
-            }`}
-            aria-label={`Navigate to ${section.label} section`}
-          >
-            {getIcon(section.id)}
-            {section.label}
-          </button>
-        ))}
-      </nav>
-      
-      {/* Contact Info */}
-      {/* <div className="absolute bottom-0 left-0 w-full p-4 border-t border-gray-700 text-sm">
-        <p className="text-gray-400 mb-1">hello@example.com</p>
-        <p className="text-gray-400">+1 (555) 123-4567</p>
-      </div> */}
-    </aside>
+      {/* Mobile vertical navigation, shown only when burger is expanded */}
+      {isSidebarOpen ? (
+        <nav className="fixed inset-x-0 top-16 z-20 w-screen md:hidden border-y border-gray-700 bg-gray-800 px-0 py-3 shadow-lg">
+          {navSections.map((section) => (
+            <button
+              key={section.id}
+              onClick={() => scrollToSection(section.id)}
+              className={`mb-2 flex w-full items-center gap-3 px-4 py-3 text-left text-sm transition duration-200 last:mb-0 ${
+                activeSection === section.id
+                  ? 'bg-orange-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+              }`}
+              aria-label={`Navigate to ${section.label} section`}
+            >
+              {getIcon(section.id)}
+              {section.label}
+            </button>
+          ))}
+        </nav>
+      ) : null}
+    </>
   );
 };
 
