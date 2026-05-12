@@ -100,15 +100,17 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
 
       {/* Mobile vertical navigation, shown only when burger is expanded */}
       {isSidebarOpen ? (
-        <nav className="fixed inset-x-0 top-16 z-20 w-screen md:hidden border-y border-gray-700 bg-gray-800 px-0 py-3 shadow-lg">
+        <nav
+          className="fixed inset-x-0 top-0 z-20 w-full md:hidden bg-orange-600 px-0 pb-3 pt-16 shadow-lg"
+        >
           {navSections.map((section) => (
             <button
               key={section.id}
               onClick={() => scrollToSection(section.id)}
-              className={`mb-2 flex w-full items-center gap-3 px-4 py-3 text-left text-sm transition duration-200 last:mb-0 ${
+              className={`mb-2 flex w-full items-center justify-center gap-3 px-4 py-3 text-center text-sm transition duration-200 last:mb-0 ${
                 activeSection === section.id
-                  ? 'bg-orange-600 text-white'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+                  ? 'text-white'
+                  : 'text-gray-200 hover:text-white'
               }`}
               aria-label={`Navigate to ${section.label} section`}
             >
