@@ -1,7 +1,7 @@
 const qualifications = {
   education: [
     {
-      degree: "MEng Computer Science",
+      degree: "First Class BSc Computer Science",
       institution: "Durham University",
       period: "2022 - Present",
       description: [

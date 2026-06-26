@@ -38,7 +38,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
             />
           </div>
           <h1 className="text-xl text-gray-200 font-bold mt-2">William Stapleton</h1>
-          <p className="text-gray-400">MEng Computer Science</p>
+          <p className="text-gray-400">First Class BSc Computer Science</p>
           <br></br>
           <p className="text-gray-400 text-sm">Incoming SE @ Red Bull Technology</p>
           <br></br>
