@@ -68,7 +68,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
           {/* Download CV Button in Topbar */}
           <div className="mt-4">
             <a
-              href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/IQCidELMmKbsQI4-eLzVhVv2AQ0ykRW-GJ_Gl0sAQ36_YWw?e=77bcO0"
+              href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/IQCT6bYSE80hRrx5qhwJRhOdAZKRYKlz8T2YU5aMVMnQeLI?e=xrRXtp"
               download
               className="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 hover:bg-gray-300 rounded-lg px-3 py-2"
             >
