@@ -1,11 +1,11 @@
 const qualifications = {
   education: [
     {
-      degree: "First Class BSc Computer Science",
+      degree: "First Class (Hons) BSc Computer Science",
       institution: "Durham University",
-      period: "2022 - Present",
+      period: "2022 - 2026",
       description: [
-        "Fourth Year (Expected 1.1): Quantum Computation, Natural Language Processing, Advanced Parallel Scientific Computing, Networks and their Structure, Blockchain and Cryptocurrencies, Advanced Computer Graphics and Visualisation",
+        "Fourth Year (1.1 73%): Quantum Computation, Natural Language Processing, Networks and their Structure, Blockchain and Cryptocurrencies, Advanced Computer Graphics and Visualisation, Advanced Project",
         "Third Year (1.1 74%): Deep Learning, Reinforcement Learning, Recommender Systems, Compiler Design, Cryptography, Parallel Scientific Computing, Game Development with VR/AR Technologies",
         "Second Year (2.1 69%): Artificial Intelligence, Data Science, Networks and Systems, Programming Paradigms, Software Engineering, Theory of Computation",
         "First Year (2.1): Algorithms and Data Structures, Computer Systems, Maths for Computer Science, Computational Thinking, Programming, Single Mathematics A (Optional Module)"

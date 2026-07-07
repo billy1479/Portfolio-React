@@ -59,15 +59,15 @@ const ProjectsSection = () => {
       });
 
   return (
-    <section id="projects" className="max-w-6xl w-full min-w-0 mb-16 bg-gray-800 rounded-xl shadow-md overflow-hidden">
+    <section id="projects" className="w-full min-w-0 mb-16 bg-white rounded-xl shadow-md overflow-hidden">
       <div className="p-8">
-        <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-700 pb-2">Projects</h2>
+        <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-200 pb-2">Projects</h2>
         {/* Filter Mode Toggle */}
         <div className="mb-4 flex gap-2 items-center">
-          <span className="text-gray-300 text-sm">Filter by:</span>
+          <span className="text-gray-600 text-sm">Filter by:</span>
           <button
             className={`inline-flex min-h-8 items-center justify-center rounded-lg px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
-              filterMode === 'backend' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+              filterMode === 'backend' ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
             }`}
             onClick={() => { setFilterMode('backend'); setActiveFilter('All'); }}
           >
@@ -75,7 +75,7 @@ const ProjectsSection = () => {
           </button>
           <button
             className={`inline-flex min-h-8 items-center justify-center rounded-lg px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
-              filterMode === 'language' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+              filterMode === 'language' ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
             }`}
             onClick={() => { setFilterMode('language'); setActiveFilter('All'); }}
           >
@@ -83,7 +83,7 @@ const ProjectsSection = () => {
           </button>
           <button
             className={`inline-flex min-h-8 items-center justify-center rounded-lg px-3 py-1 text-xs font-semibold leading-none transition-colors duration-200 ${
-              filterMode === 'module' ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+              filterMode === 'module' ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
             }`}
             onClick={() => { setFilterMode('module'); setActiveFilter('All'); }}
           >
@@ -97,9 +97,9 @@ const ProjectsSection = () => {
               key={filter}
               onClick={() => setActiveFilter(filter)}
               className={`inline-flex min-h-10 items-center justify-center rounded-lg px-4 py-2 text-sm leading-none transition-colors duration-200 ${
-                filter === activeFilter 
-                  ? 'bg-orange-600 text-white' 
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+                filter === activeFilter
+                  ? 'bg-orange-600 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
               }`}
               aria-label={`Filter projects by ${filterMode} ${filter}`}
             >
@@ -112,7 +112,7 @@ const ProjectsSection = () => {
           {filteredProjects.map((project, index) => (
             <div 
               key={index} 
-              className="bg-gray-700 rounded-lg overflow-hidden shadow-md border border-gray-600 transition duration-300 hover:shadow-lg hover:border-orange-500"
+              className="bg-gray-50 rounded-lg overflow-hidden shadow-md border border-gray-200 transition duration-300 hover:shadow-lg hover:border-orange-500"
             >
               {/* Gallery */}
               {project.images && project.images.length > 0 ? (
@@ -128,7 +128,7 @@ const ProjectsSection = () => {
                   ))}
                 </div>
               ) : (
-                <div className="w-full h-48 bg-gray-900 flex items-center justify-center text-gray-500">
+                <div className="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-400">
                   No images
                 </div>
               )}
@@ -137,22 +137,22 @@ const ProjectsSection = () => {
                   {(project.languages || 'Other').split(',').map((language, idx) => (
                     <span
                       key={idx}
-                      className="inline-flex min-h-8 items-center justify-center rounded-lg bg-orange-900 px-3 py-1 text-xs font-semibold leading-none text-orange-200"
+                      className="inline-flex min-h-8 items-center justify-center rounded-lg bg-orange-100 px-3 py-1 text-xs font-semibold leading-none text-orange-700"
                     >
                       {language.trim()}
                     </span>
                   ))}
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-gray-200">{project.title}</h3>
-                <div className="mb-2 text-gray-400 text-sm">
+                <h3 className="text-xl font-bold mb-2 text-gray-800">{project.title}</h3>
+                <div className="mb-2 text-gray-500 text-sm">
                   <strong>Backend:</strong> {project.backend}
                 </div>
                 {project.courseworkPercentage != null && (
-                  <div className="mb-2 text-gray-400 text-sm">
+                  <div className="mb-2 text-gray-500 text-sm">
                     <strong>Coursework Mark:</strong> {project.courseworkPercentage}%
                   </div>
                 )}
-                <p className="text-gray-400 mb-4">{project.description}</p>
+                <p className="text-gray-500 mb-4">{project.description}</p>
                 <div className="mt-4 flex flex-wrap gap-3">
                   {project.links && project.links.map((link, idx) => (
                     <a
@@ -160,7 +160,7 @@ const ProjectsSection = () => {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-orange-500/60 px-4 py-2 text-sm font-medium text-orange-300 transition-colors duration-200 hover:bg-orange-500/10 hover:text-orange-200"
+                      className="inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-orange-500/60 px-4 py-2 text-sm font-medium text-orange-600 transition-colors duration-200 hover:bg-orange-500/10 hover:text-orange-700"
                     >
                       {link.url.includes('github.com') ? <Github size={16} /> : <ExternalLink size={16} />}
                       <span>{link.label}</span>

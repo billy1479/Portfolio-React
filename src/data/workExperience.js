@@ -9,7 +9,7 @@ const workExperience = [
   {
     position: 'Software Developer',
     company: 'ArdenIT Ltd, Beeston, Nottingham',
-    period: 'October 2025 – Present',
+    period: 'October 2025 – July 2026',
     description: 'I develop enterprise software solutions and web applications for ArdenIT, focusing on Power Platform development and PHP web applications deployed for businesses nationally. My responsibilities include architecting Power Platform applications such as project calendar systems, invoice management platforms, and asset management solutions that serve organizational operations across the company. I implement PHP web applications using 20i hosting infrastructure, delivering e-commerce platforms and business landing pages for clients throughout the United Kingdom. My role encompasses building custom SharePoint integrations that connect disparate business systems and designing automated workflows that eliminate manual processes and enhance operational efficiency. I provide ongoing application support and feature enhancement based on user feedback and evolving business requirements, ensuring solutions remain aligned with organizational needs. I rejoined ArdenIT during my final year at Durham University following the companys expansion of their web solutions division, leveraging my prior technical contributions and institutional knowledge to accelerate development initiatives.',
     image: require('../assets/Experience/arden.png'),
     className: 'ardenit-img'

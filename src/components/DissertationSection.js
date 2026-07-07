@@ -3,18 +3,18 @@ import React from 'react';
 const DissertationSection = ({ onOpenDashboard }) => (
   <section
     id="dissertation"
-    className="max-w-6xl w-full min-w-0 mb-16 bg-gray-800 rounded-xl shadow-md overflow-hidden"
+    className="w-full min-w-0 mb-16 bg-white rounded-xl shadow-md overflow-hidden"
   >
     <div className="p-8">
-      <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-700 pb-2">
+      <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-200 pb-2">
         Master’s Dissertation
       </h2>
 
       {/* Project Overview */}
-      <h3 className="text-xl font-semibold text-gray-200 mb-2">
+      <h3 className="text-xl font-semibold text-gray-800 mb-2">
         Using Machine Learning to Identify Black Hole Subsystems in Globular Clusters
       </h3>
-      <p className="text-gray-400 leading-relaxed mb-6">
+      <p className="text-gray-500 leading-relaxed mb-6">
         This project investigates how machine learning can be used to identify globular clusters
         that host stellar-mass black hole subsystems, addressing the discrepancy between theoretical
         predictions and the limited number of confirmed observational detections. Rather than relying
@@ -25,10 +25,10 @@ const DissertationSection = ({ onOpenDashboard }) => (
       </p>
 
       {/* Methodology */}
-      <h4 className="text-lg font-semibold text-gray-300 mb-2">
+      <h4 className="text-lg font-semibold text-gray-700 mb-2">
         Methodology & Technical Approach
       </h4>
-      <p className="text-gray-400 leading-relaxed mb-4">
+      <p className="text-gray-500 leading-relaxed mb-4">
         The project combines large-scale astrophysical simulations with supervised ensemble machine
         learning. Training data are drawn from two complementary simulation frameworks: MOCCA (a
         Monte Carlo code) as the primary source, providing 1,296 labelled snapshots, and RAPSTER
@@ -40,7 +40,7 @@ const DissertationSection = ({ onOpenDashboard }) => (
         in real astronomical surveys. The final feature contract was determined through a
         leave-one-feature-out ablation study optimising cross-framework transfer.
       </p>
-      <p className="text-gray-400 leading-relaxed mb-6">
+      <p className="text-gray-500 leading-relaxed mb-6">
         A stacked generalisation ensemble is trained on this mixed-code pool, combining three base
         learners with complementary inductive biases - CatBoost, XGBoost, and a residual multilayer
         perceptron - whose out-of-fold probability predictions are combined by a logistic regression
@@ -52,10 +52,10 @@ const DissertationSection = ({ onOpenDashboard }) => (
         positive-class rate.
       </p>
 
-      <h4 className="text-lg font-semibold text-gray-300 mb-2">
+      <h4 className="text-lg font-semibold text-gray-700 mb-2">
         Results & Achievements
       </h4>
-      <p className="text-gray-400 leading-relaxed mb-4">
+      <p className="text-gray-500 leading-relaxed mb-4">
         The Mixed Stacking Ensemble achieves a cross-framework harmonic-mean F1 of 0.804 on held-out
         validation data, compared with 0.279 for a MOCCA-only baseline - a 2.88x improvement in
         cross-code generalisation. The best single model under cross-validation, Mixed CatBoost,
@@ -64,7 +64,7 @@ const DissertationSection = ({ onOpenDashboard }) => (
         BHS-positive (`mean predicted probability 0.860`), providing qualitative cross-code
         validation to a third independent simulation architecture.
       </p>
-      <p className="text-gray-400 leading-relaxed mb-6">
+      <p className="text-gray-500 leading-relaxed mb-6">
         Applied to three real observational catalogues, the deployment model identifies 24
         BHS-positive candidates in the Harris catalogue (48.4% literature recall, 62.5% precision),
         25 in the Baumgardt-Hilker catalogue (68.0% recall and precision), and 41 from 167 clusters
@@ -76,10 +76,10 @@ const DissertationSection = ({ onOpenDashboard }) => (
       </p>
 
       {/* Motivation & Novelty */}
-      <h4 className="text-lg font-semibold text-gray-300 mb-2">
+      <h4 className="text-lg font-semibold text-gray-700 mb-2">
         Research Motivation & Novelty
       </h4>
-      <p className="text-gray-400 leading-relaxed mb-6">
+      <p className="text-gray-500 leading-relaxed mb-6">
         Black holes in globular clusters are difficult to detect because most are non-accreting and
         electromagnetically quiet, and clusters with similar observable properties can evolve through
         very different dynamical pathways. This project extends the methodology of Askar et al.
@@ -91,11 +91,11 @@ const DissertationSection = ({ onOpenDashboard }) => (
         shift.
       </p>
 
-      <div className="mb-6 rounded-xl border border-orange-500/30 bg-gray-900/80 p-6">
-        <h4 className="text-lg font-semibold text-orange-400 mb-2">
+      <div className="mb-6 rounded-xl border border-orange-200 bg-orange-50 p-6">
+        <h4 className="text-lg font-semibold text-orange-600 mb-2">
           Interactive Dashboard
         </h4>
-        <p className="text-gray-300 leading-relaxed mb-4">
+        <p className="text-gray-600 leading-relaxed mb-4">
           The dissertation demo now has a dedicated page inside the portfolio site itself, rebuilt
           in React so it opens like the rest of the website while preserving the exploratory
           catalogue, threshold, and cluster-inspection workflow.
@@ -112,7 +112,7 @@ const DissertationSection = ({ onOpenDashboard }) => (
             href="https://github.com/billy1479/Dissertation_BlackHoleSubsystemClassification/tree/main"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-lg border border-orange-500 px-5 py-3 font-semibold text-orange-300 transition hover:bg-orange-500/10 hover:text-orange-200"
+            className="inline-flex items-center justify-center rounded-lg border border-orange-500 px-5 py-3 font-semibold text-orange-600 transition hover:bg-orange-500/10 hover:text-orange-700"
           >
             Open GitHub Repository
           </a>
@@ -120,10 +120,10 @@ const DissertationSection = ({ onOpenDashboard }) => (
       </div>
 
       {/* Resources */}
-      <h4 className="text-lg font-semibold text-gray-300 mb-2">
+      <h4 className="text-lg font-semibold text-gray-700 mb-2">
         Resources & Outputs
       </h4>
-      <ul className="list-disc list-inside text-gray-400 space-y-1">
+      <ul className="list-disc list-inside text-gray-500 space-y-1">
         <li>Simulation frameworks: MOCCA (Monte Carlo), RAPSTER (semi-analytic), with DRAGON direct N-body used for cross-code validation</li>
         <li>Machine learning methods: CatBoost, XGBoost, Residual MLP, Stacking Ensemble (logistic regression meta-learner)</li>
         <li>Feature engineering: 8-feature observable contract including two novel structural ratios, determined via leave-one-feature-out ablation</li>
@@ -133,7 +133,7 @@ const DissertationSection = ({ onOpenDashboard }) => (
 
       {/* Context */}
       <br></br>
-      <p className="text-gray-500 leading-relaxed mt-6">
+      <p className="text-gray-600 leading-relaxed mt-6">
         This work builds on Askar et al. (2019)'s foundational single-code approach, extending it
         through mixed-code ensemble training, explicit domain shift analysis, and deployment to
         three independent observational catalogues, providing prioritised candidate lists for future

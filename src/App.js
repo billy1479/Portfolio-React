@@ -151,7 +151,7 @@ const App = () => {
   }
 
   return (
-    <div className="font-sans text-gray-200 min-h-screen bg-gray-900 flex flex-col md:flex-row">
+    <div className="font-sans text-gray-800 min-h-screen bg-gray-100 flex flex-col md:flex-row">
       {/* Mobile Toggle Button */}
       <button
         className="md:hidden fixed top-4 left-4 z-30 bg-orange-600 text-white p-2 rounded-md shadow-md"
@@ -171,7 +171,7 @@ const App = () => {
 
       {/* Main Content */}
       <main className={`flex-1 md:ml-0 p-4 ${isSidebarOpen ? 'pt-96' : 'pt-16'} md:pt-4 flex`}>
-        <div className="max-w-6xl w-full min-w-0 mx-auto flex flex-col gap-8">
+        <div className="max-w-[1600px] w-full min-w-0 mx-auto flex flex-col gap-8">
           <AboutSection />
           <QualificationsSection />
           <WorkExperienceSection />

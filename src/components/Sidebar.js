@@ -25,31 +25,31 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
   return (
     <>
       <aside
-        className="hidden md:sticky md:top-0 md:z-20 md:flex md:w-64 md:flex-col md:bg-gray-800 md:text-white"
+        className="hidden md:sticky md:top-0 md:z-20 md:flex md:w-64 md:flex-col md:bg-orange-600 md:text-white"
         style={{ height: '100dvh', WebkitOverflowScrolling: 'touch' }}
       >
         {/* Profile Section */}
-        <div className="shrink-0 border-b border-gray-700 p-6 text-center">
-          <div className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-500 to-amber-600 rounded-full overflow-hidden border-4 border-gray-700 shadow-md mb-4">
+        <div className="shrink-0 border-b border-orange-500 p-6 text-center">
+          <div className="w-32 h-32 mx-auto bg-gradient-to-br from-orange-500 to-amber-600 rounded-full overflow-hidden border-4 border-white/40 shadow-md mb-4">
             <img
               src={require(`../assets/new_profile_picture.jpeg`)}
               alt="Developer portrait"
               className="w-full h-full object-cover"
             />
           </div>
-          <h1 className="text-xl text-gray-200 font-bold mt-2">William Stapleton</h1>
-          <p className="text-gray-400">First Class BSc Computer Science</p>
+          <h1 className="text-xl text-white font-bold mt-2">William Stapleton</h1>
+          <p className="text-orange-100">First Class (Hons) BSc Computer Science</p>
           <br></br>
-          <p className="text-gray-400 text-sm">Incoming SE @ Red Bull Technology</p>
+          <p className="text-orange-100 text-sm">Software Engineer @ Red Bull Technology</p>
           <br></br>
-          <p className="text-gray-400 text-sm">Power Platform Developer</p>
+          <p className="text-orange-100 text-sm">Power Platform Developer</p>
           <br></br>
           <div className="flex justify-center space-x-4 mt-4">
             <a
               href="https://github.com/billy1479"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
+              className="text-orange-100 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-orange-500 rounded-full p-1"
               aria-label="GitHub"
             >
               <Github size={20} />
@@ -58,7 +58,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
               href="https://www.linkedin.com/in/william-stapleton-57674b219/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-gray-300 rounded-full p-1"
+              className="text-orange-100 hover:text-white cursor-pointer transition-colors duration-200 hover:bg-orange-500 rounded-full p-1"
               aria-label="LinkedIn"
             >
               <Linkedin size={20} />
@@ -70,7 +70,7 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
             <a
               href="https://williamstapleton-my.sharepoint.com/:b:/g/personal/billy_williamstapleton_co_uk/IQCT6bYSE80hRrx5qhwJRhOdAZKRYKlz8T2YU5aMVMnQeLI?e=xrRXtp"
               download
-              className="flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 hover:bg-gray-300 rounded-lg px-3 py-2"
+              className="flex items-center justify-center gap-2 text-orange-100 hover:text-white transition-colors duration-200 hover:bg-orange-500 rounded-lg px-3 py-2"
             >
               <Download size={20} />
               <span className="text-sm">Download CV</span>
@@ -86,8 +86,8 @@ const Sidebar = ({ navSections, activeSection, isSidebarOpen, scrollToSection })
               onClick={() => scrollToSection(section.id)}
               className={`flex items-center gap-3 w-full text-left py-3 px-4 rounded-lg transition duration-200 ${
                 activeSection === section.id
-                  ? 'bg-orange-600 text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                  ? 'bg-white text-orange-600'
+                  : 'text-orange-100 hover:text-white hover:bg-orange-500'
               }`}
               aria-label={`Navigate to ${section.label} section`}
             >
