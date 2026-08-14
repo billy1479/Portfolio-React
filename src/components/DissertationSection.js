@@ -7,7 +7,7 @@ const DissertationSection = ({ onOpenDashboard }) => (
   >
     <div className="p-8">
       <h2 className="text-3xl font-bold mb-6 text-orange-500 border-b border-gray-200 pb-2">
-        Master’s Dissertation
+        Undergraduate Dissertation
       </h2>
 
       {/* Project Overview */}

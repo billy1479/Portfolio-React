@@ -35,20 +35,6 @@ const workExperience = [
     description: 'I worked as an IT Engineer at ArdenIT, where I developed internal business applications and managed IT infrastructure for multiple client organizations. My software development responsibilities included creating a PHP inventory management system that tracked hardware assets and an internal job sheet application that streamlined work order management and technician scheduling. These applications improved operational efficiency and provided better visibility into business processes.My infrastructure responsibilities encompassed administering Microsoft 365 and SharePoint environments for clients across various industries, ensuring secure configuration and optimal performance. I configured and deployed network infrastructure using Unifi and DrayTek systems, implementing secure wireless networks and site-to-site VPN connections for distributed organizations. I provided comprehensive technical support across Windows and macOS environments, resolving hardware issues, software conflicts, and user access problems. I resigned from this position to pursue full-time First Class BSc Computer Science studies at Durham University, transitioning from practical IT work to formalized computer science education.',
     image: require('../assets/Experience/arden.png'),
     className: 'ardenit-img'
-  },
-  {
-    position: 'Laboratory Technician',
-    company: 'Dante Labs, Loughborough',
-    period: 'September 2021 – December 2021',
-    description: 'I worked as a laboratory assistant at Dante Labs during the COVID-19 pandemic, contributing to large-scale PCR testing operations that supported public health initiatives. My responsibilities included managing JANUS automated liquid handling systems and Chemagic 360 nucleic acid extraction machines, which processed thousands of COVID-19 test samples daily. This role required meticulous attention to laboratory protocols, quality control procedures, and biosafety standards to ensure accurate test results. I operated in a high-pressure environment where accuracy and efficiency were critical to public health response efforts. The position provided valuable experience in laboratory automation, quality assurance processes, and working within regulated healthcare environments. I left this position as testing demand decreased towards the end of the pandemic, transitioning to pursue opportunities more closely aligned with my computer science background and career objectives in software engineering.',
-    image: require('../assets/Experience/dante.png')
-  },
-  {
-    position: 'Shop Assistant',
-    company: 'Bingham Fish Bar, Bingham',
-    period: 'September 2019 – August 2021',
-    description: 'I worked as a shop assistant at Bingham Fish and Chips throughout my secondary education, balancing academic commitments with part-time employment responsibilities. During the COVID-19 pandemic, I managed the implementation and operation of collection and delivery services, adapting business operations to meet changing customer needs whilst adhering to health and safety guidelines. This experience developed my ability to manage competing priorities whilst completing my GCSE and A-Level examinations. My responsibilities expanded to include training new staff members on food preparation procedures, customer service standards, and point-of-sale systems. I managed cash handling responsibilities including daily reconciliation, banking procedures, and financial record-keeping. I independently operated opening and closing procedures, which required reliability, attention to security protocols, and comprehensive understanding of all shop operations. This role developed foundational professional skills including customer service, time management, and the ability to work effectively under pressure whilst maintaining quality standards.',
-    image: require('../assets/Experience/chippy.png')
   }
 ];
 
